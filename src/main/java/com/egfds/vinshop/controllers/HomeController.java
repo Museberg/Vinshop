@@ -20,4 +20,10 @@ public class HomeController {
         addressService.save(address);
         return "index";
     }
+
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin/admin";
+    }
 }

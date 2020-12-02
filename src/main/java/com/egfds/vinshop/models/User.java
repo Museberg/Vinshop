@@ -17,6 +17,20 @@ public class User {
     @Column
     private String email;
 
+    @Column
+    private String password;
+
+    @Column
+    private String roles;
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
@@ -59,5 +73,13 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

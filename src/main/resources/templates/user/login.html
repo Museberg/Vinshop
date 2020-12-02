@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+</head>
+<body>
+<div>
+    <form method="post" action="/user/login">
+        <input type="text" name="email" placeholder="brugernavn">
+        <input type="text" name="password" placeholder="adgangskode">
+        <input type="submit" value="Log ind">
+    </form>
+</div>
+<div th:if="${session.loginstatus == 'yes'}">
+    <h1>Hej du er inde</h1>
+
+</div>
+
+
+</body>
+</html>
