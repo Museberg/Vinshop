@@ -20,7 +20,7 @@ public class Address {
     @JoinColumn(name = "zipCode_id")
     private Zip zipCode;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address") // evt. .DETACH
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private Set<User> users;
 
     public Address(long id, Set<User> users) {
