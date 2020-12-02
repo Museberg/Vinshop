@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add attribute options</title>
+</head>
+<body>
+<form action="/attributeOptions/create" method="post" id="form">
+    <table>
+        <tr>
+            <td><label>Attribut:</label></td>
+            <td>
+                <select name="attribute">
+                    <option
+                            th:each="attribute : ${attributes}"
+                            th:value="${attribute.id}"
+                            th:text="${attribute.name}"
+                    ></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Attribut-valgmulighed:</label></td>
+            <td><input type="text" name="attributeOption"></td>
+        </tr>
+    </table>
+</form>
+<button type="submit" value="Submit" form="form">Tilføj mulighed</button>
+</body>
+</html>

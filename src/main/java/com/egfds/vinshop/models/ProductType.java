@@ -11,7 +11,12 @@ public class ProductType {
     private Long id;
     @Column
     private String name;
-    @ManyToMany(mappedBy = "productTypes")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "ProductType_Attributes",
+            joinColumns = {@JoinColumn(name = "product_types_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_attribute_id")}
+    )
     private Set<ProductAttribute> productAttributes;
 
     public Long getId() {

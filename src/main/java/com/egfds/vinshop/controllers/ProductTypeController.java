@@ -41,9 +41,13 @@ public class ProductTypeController {
         System.out.println(productType.getName());
         productTypeService.save(productType);
 
-
-
         Optional<ProductType> productTypeOptional = productTypeService.findById(productType.getId());
+
+        Set<ProductAttribute> attributes = productTypeOptional.get().getProductAttributes();
+        productTypeOptional.get().getProductAttributes().addAll(attributes);
+        productTypeService.save(productTypeOptional.get());
+
+        productTypeService.save(productTypeOptional.get());
         for(ProductAttribute pr : productTypeOptional.get().getProductAttributes()){
             System.out.println(pr.getName());
         }

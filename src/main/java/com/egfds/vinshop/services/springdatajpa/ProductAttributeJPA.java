@@ -43,6 +43,6 @@ public class ProductAttributeJPA implements IProductAttributeService {
 
     @Override
     public Optional<ProductAttribute> findById(Long aLong) {
-        return Optional.empty();
+        return productAttributeRepository.findById(aLong);
     }
 }
