@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Product type</title>
+</head>
+<body>
+    <table th:object="${productType}">
+        <tr>
+            <td><label>ID:</label></td>
+            <td th:text="${id}"></td>
+        </tr>
+        <tr>
+            <td><label>Name:</label></td>
+            <td th:text="${productType.name}"></td>
+        </tr>
+        <tr th:each="PA :${productType.productAttributes}">
+            <td th:text="${PA.name}"></td>
+        </tr>
+    </table>
+</body>
+</html>

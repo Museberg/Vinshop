@@ -1,20 +1,20 @@
 package com.egfds.vinshop.services.springdatajpa;
 
 import com.egfds.vinshop.models.Address;
-import com.egfds.vinshop.repositories.AddressRepository;
-import com.egfds.vinshop.services.AddressService;
+import com.egfds.vinshop.repositories.IAddressRepository;
+import com.egfds.vinshop.services.IAddressService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class AddressJPA implements AddressService {
+public class AddressJPAAddressService implements IAddressService {
 
-    private final AddressRepository addressRepository;
+    private final IAddressRepository IAddressRepository;
 
-    public AddressJPA(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
+    public AddressJPAAddressService(IAddressRepository IAddressRepository) {
+        this.IAddressRepository = IAddressRepository;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class AddressJPA implements AddressService {
 
     @Override
     public Address save(Address object) {
-        return addressRepository.save(object);
+        return IAddressRepository.save(object);
     }
 
     @Override
