@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class AddressJPAAddressService implements IAddressService {
+public class AddressJPA implements IAddressService {
 
     private final IAddressRepository IAddressRepository;
 
-    public AddressJPAAddressService(IAddressRepository IAddressRepository) {
+    public AddressJPA(IAddressRepository IAddressRepository) {
         this.IAddressRepository = IAddressRepository;
     }
 

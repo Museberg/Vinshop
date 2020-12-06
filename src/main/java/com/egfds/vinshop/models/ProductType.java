@@ -1,9 +1,10 @@
 package com.egfds.vinshop.models;
 
+
 import javax.persistence.*;
 
 @Entity
-public class Attribute {
+public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,11 +12,6 @@ public class Attribute {
 
     @Column
     private String label;
-
-    // Each attribute contains a reference to ONE (1) product type
-    @ManyToOne
-    private ProductType type;
-
 
     public long getId() {
         return id;
@@ -33,20 +29,11 @@ public class Attribute {
         this.label = label;
     }
 
-    public ProductType getType() {
-        return type;
-    }
-
-    public void setType(ProductType type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
-        return "Attribute{" +
+        return "ProductType{" +
                 "id=" + id +
                 ", label='" + label + '\'' +
-                ", type=" + type +
                 '}';
     }
 }
