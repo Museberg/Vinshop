@@ -18,7 +18,8 @@
     <button type="submit">Choose</button>
 </form>
 
-
+<!-- Give this a read to understand WTF is going on
+https://stackoverflow.com/questions/36500731/how-to-bind-an-object-list-with-thymeleaf -->
 <form action="/products/add" method="post" th:object="${valueList}">
     <table th:if="${product}">
         <tr>
