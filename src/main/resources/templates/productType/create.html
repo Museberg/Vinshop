@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret produkttype</title>
+</head>
+<body>
+<form action="/productTypes/create" method="post" th:object="${productType}">
+    <table>
+        <tr>
+            <td><label>Name</label></td>
+            <td><input type="text" th:field="*{label}"></td>
+        </tr>
+    </table>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>
