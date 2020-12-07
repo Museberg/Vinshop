@@ -1,7 +1,9 @@
 package com.egfds.vinshop.configuration;
 
+import com.egfds.vinshop.services.UserAuthDetailsService;
 import com.egfds.vinshop.utillities.PasswordEncoderTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,7 @@ import java.net.PasswordAuthentication;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Qualifier("userAuthDetailsService")
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -44,8 +47,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/user/*").hasRole("USER")
+                .antMatchers("/owner/**").hasRole("OWNER")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "OWNER")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN", "OWNER")
                 .antMatchers("/").permitAll()
                 .antMatchers("/error").permitAll()
                 .and().formLogin();

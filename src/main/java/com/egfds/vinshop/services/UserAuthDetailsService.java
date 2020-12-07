@@ -20,9 +20,9 @@ public class UserAuthDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("2");
-       Optional<User> user =  userRepository.findByEmail(email);
-       user.orElseThrow(() -> new UsernameNotFoundException("No user found with email: " + email));
+        Optional<User> user =  userRepository.findByEmail(email.toLowerCase());
+        user.orElseThrow(() -> new UsernameNotFoundException("No user found with email: " + email));
         System.out.println("HERE IS THE USER : " + user);
-       return user.map(UserAuthDetails::new).get();
+        return user.map(UserAuthDetails::new).get();
     }
 }

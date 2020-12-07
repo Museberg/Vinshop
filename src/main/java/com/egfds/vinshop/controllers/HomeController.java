@@ -26,4 +26,14 @@ public class HomeController {
     public String admin(){
         return "admin/admin";
     }
+
+    @GetMapping("/owner")
+    public String owner() {
+        return "owner/owner";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "user/user";
+    }
 }
