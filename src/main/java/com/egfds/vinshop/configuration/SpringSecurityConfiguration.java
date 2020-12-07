@@ -46,9 +46,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors().and().csrf().disable();
         httpSecurity.authorizeRequests()
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "OWNER")
+                .antMatchers("/products/**").hasAnyRole("ADMIN", "OWNER")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN", "OWNER")
                 .antMatchers("/").permitAll()
                 .antMatchers("/error").permitAll()
