@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = {IUserRepository.class, IProductTypeRepo.class})
 public class VinshopApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(VinshopApplication.class, args);
     }

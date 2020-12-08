@@ -28,7 +28,7 @@ public class UserController {
         model.addAttribute("user", new User());
         model.addAttribute("address", new Address());
         model.addAttribute("zip", new Zip());
-        return "signup";
+        return "user/signup";
     }
 
     @PostMapping("/create")
