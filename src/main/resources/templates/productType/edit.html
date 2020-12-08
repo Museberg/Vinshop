@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Redigér produkttype</title>
+</head>
+<body>
+<form action="/productTypes/update" method="post" th:object="${attributeList}">
+    <table>
+        <input type="hidden" th:field="${type.id}">
+        <tr>
+            <td><input type="text" th:field="${type.label}"></td>
+        </tr>
+
+        <tr th:each="attribute, stat : *{attributes}">
+            <td><input type="hidden" th:field="*{attributes[__${stat.index}__].id}"></td>
+            <td><input type="hidden" th:field="*{attributes[__${stat.index}__].type}"></td>
+            <td><input type="text" th:field="*{attributes[__${stat.index}__].label}"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Gem ændringer</button></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
