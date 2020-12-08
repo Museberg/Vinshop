@@ -32,12 +32,12 @@ public class ProductJPA implements IProductService {
 
     @Override
     public void delete(Product object) {
-
+        productRepo.delete(object);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        productRepo.deleteById(aLong);
     }
 
     @Override

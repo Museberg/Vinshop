@@ -1,5 +1,8 @@
 package com.egfds.vinshop.models;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +16,7 @@ public class Attribute {
     private String label;
 
     // Each attribute contains a reference to ONE (1) product type
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private ProductType type;
 
 

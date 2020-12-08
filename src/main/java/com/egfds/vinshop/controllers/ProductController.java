@@ -58,7 +58,7 @@ public class ProductController {
         return "product/create";
     }
 
-    @PostMapping(value="/add")
+    @PostMapping("/add")
     public String add(Model model, @ModelAttribute ValueList wrapper, @ModelAttribute Product product){
         model.addAttribute("types", typeService.findAll());
         for(Value v : wrapper.getValues()){
@@ -74,5 +74,18 @@ public class ProductController {
             valueService.save(v);
         }
         return "redirect:/products/create";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        model.addAttribute("products", productService.findAll());
+        return "product/list";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id){
+        valueService.deleteByProductId(id);
+        productService.deleteById(id);
+        return "redirect:/products/list";
     }
 }

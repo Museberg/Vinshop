@@ -50,4 +50,5 @@ public class AttributeJPA implements IAttributeService {
         attributeRepo.findAll().forEach(attributes::add);
         return attributes.stream().filter(a -> a.getType().getId() == typeId).collect(Collectors.toList());
     }
+
 }

@@ -5,9 +5,7 @@ import com.egfds.vinshop.repositories.ProductRepos.IValueRepo;
 import com.egfds.vinshop.services.ProductService.IValueService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Phaser;
 
 @Service
@@ -44,5 +42,17 @@ public class ValueJPA implements IValueService {
     @Override
     public Optional<Value> findById(Long aLong) {
         return valueRepo.findById(aLong);
+    }
+
+    @Override
+    public void deleteByProductId(Long productId) {
+        List<Value> values = new ArrayList<>();
+        valueRepo.findAll().forEach(values::add);
+        for(Value v : values){
+            if(v.getProduct().getId() == productId){
+                valueRepo.delete(v);
+            }
+        }
+
     }
 }
