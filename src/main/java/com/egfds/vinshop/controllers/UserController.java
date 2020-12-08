@@ -33,14 +33,17 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute User user, @ModelAttribute Address address, @ModelAttribute Zip zip){
-        Zip tempZip = zipService.save(zip);
-        address.setZipCode(tempZip);
-        Address tempAddress = addressService.save(address);
-        user.setAddress(tempAddress);
-        user.setRoles("ROLE_USER");
-        userService.save(user);
-        return "redirect:/";
+        zipService.save(zip);
+        address.setZipCode(zip);
 
+        addressService.save(address);
+        user.setAddress(address);
+
+        user.setRoles("ROLE_USER");
+
+        userService.save(user);
+
+        return "redirect:/";
     }
 
 }

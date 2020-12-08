@@ -16,8 +16,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(){
-        Address address = new Address();
-        addressService.save(address);
         return "index";
     }
 
