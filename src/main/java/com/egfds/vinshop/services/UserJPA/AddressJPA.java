@@ -1,8 +1,8 @@
-package com.egfds.vinshop.services.springdatajpa;
+package com.egfds.vinshop.services.UserJPA;
 
 import com.egfds.vinshop.models.Address;
-import com.egfds.vinshop.repositories.IAddressRepository;
-import com.egfds.vinshop.services.IAddressService;
+import com.egfds.vinshop.repositories.UserRepos.IAddressRepository;
+import com.egfds.vinshop.services.UserService.IAddressService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

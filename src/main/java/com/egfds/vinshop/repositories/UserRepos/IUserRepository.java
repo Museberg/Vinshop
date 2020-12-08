@@ -1,4 +1,4 @@
-package com.egfds.vinshop.repositories;
+package com.egfds.vinshop.repositories.UserRepos;
 
 
 import com.egfds.vinshop.models.User;
