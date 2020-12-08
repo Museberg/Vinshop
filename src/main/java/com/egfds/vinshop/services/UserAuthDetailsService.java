@@ -3,7 +3,7 @@ package com.egfds.vinshop.services;
 
 import com.egfds.vinshop.models.User;
 import com.egfds.vinshop.models.UserAuthDetails;
-import com.egfds.vinshop.repositories.IUserRepository;
+import com.egfds.vinshop.repositories.UserRepos.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret Konto</title>
+</head>
+<body>
+<h1>Opret brugerkonto</h1>
+<form method="post" action="/create">
+
+    <table>
+        <tr>
+            <td><input type="hidden" th:field="${user.roles}"></td>
+        </tr>
+        <tr>
+            <td>Fornavn: </td>
+            <td><input type="text" th:field="${user.firstName}"></td>
+        </tr>
+        <tr>
+            <td>Efternavn: </td>
+            <td><input type="text" th:field="${user.lastName}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="${user.email}"></td>
+        </tr>
+        <tr>
+            <td>Adgangskode:</td>
+            <td><input type="text" th:field="${user.password}"></td>
+        </tr>
+        <tr>
+            <td>Postnummer:</td>
+            <td><input type="text" th:field="${zip.zipCode}"></td>
+        </tr>
+        <tr>
+            <td>By:</td>
+            <td><input type="text" th:field="${zip.city}"></td>
+        </tr>
+        <tr>
+            <td>Gadenavn:</td>
+            <td><input type="text" th:field="${address.street}"></td>
+        </tr>
+        <tr>
+            <td>Husnummer:</td>
+            <td><input type="text" th:field="${address.streetNumber}"></td>
+        </tr>
+    </table>
+    <button type="submit" value="Opret Konto">Opret Konto</button>
+</form>
+</body>
+</html>

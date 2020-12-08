@@ -1,7 +1,7 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.Address;
-import com.egfds.vinshop.services.IAddressService;
+import com.egfds.vinshop.services.UserService.IAddressService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
