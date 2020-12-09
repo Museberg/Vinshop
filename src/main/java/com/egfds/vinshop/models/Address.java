@@ -20,7 +20,7 @@ public class Address {
     @JoinColumn(name = "zipCode_id")
     private Zip zipCode;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users;
 
     public Address(long id, Set<User> users) {

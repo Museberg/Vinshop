@@ -17,7 +17,7 @@ public class Zip {
     @Column
     private String city;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Address> address;
 
     public long getId() {
