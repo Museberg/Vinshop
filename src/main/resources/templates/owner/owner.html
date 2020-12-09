@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
     <meta charset="UTF-8">
     <title>Welcome Owner</title>
 </head>
 <body>
-
+<div th:replace="fragments/navbar :: navbar"></div>
 <h1>This page should only be accesible for owners</h1>
 </body>
 </html>
