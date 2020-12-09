@@ -1,10 +1,7 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.*;
-import com.egfds.vinshop.services.ProductService.IAttributeService;
-import com.egfds.vinshop.services.ProductService.IProductService;
-import com.egfds.vinshop.services.ProductService.IProductTypeService;
-import com.egfds.vinshop.services.ProductService.IValueService;
+import com.egfds.vinshop.services.ProductService.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +17,14 @@ public class ProductController {
     private IAttributeService attributeService;
     private IProductService productService;
     private IValueService valueService;
+    private IStockService stockService;
 
-    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService) {
+    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService) {
         this.typeService = typeService;
         this.attributeService = attributeService;
         this.productService = productService;
         this.valueService = valueService;
+        this.stockService = stockService;
     }
 
     @GetMapping("/create")
@@ -79,6 +78,7 @@ public class ProductController {
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("products", productService.findAll());
+        model.addAttribute("stock", stockService.findAll());
         return "product/list";
     }
 

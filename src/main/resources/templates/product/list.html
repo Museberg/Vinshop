@@ -11,14 +11,16 @@
     <thead>
     <th>Navn</th>
     <th>Pris</th>
+    <th>Lagerbeholdning</th>
     <th></th>
     </thead>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
+    <tr th:each="s : ${stock}">
+        <td th:text="${s.product.name}"></td>
+        <td th:text="${s.product.price}"></td>
+        <td th:text="${s.stockAmount}"></td>
         <td>
             <form action="/products/delete" method="post">
-                <button type="submit" name="id" id="id" th:value="${product.id}" class="btn btn-danger">Slet</button>
+                <button type="submit" name="id" id="id" th:value="${s.product.id}" class="btn btn-danger">Slet</button>
             </form>
         </td>
     </tr>
