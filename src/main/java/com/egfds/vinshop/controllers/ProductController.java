@@ -88,4 +88,10 @@ public class ProductController {
         productService.deleteById(id);
         return "redirect:/products/list";
     }
+
+    @GetMapping("/admin/list")
+    public String adminList(Model model) {
+        model.addAttribute("products", productService.findAll());
+        return "/admin/list";
+    }
 }
