@@ -19,6 +19,11 @@
         <td th:text="${s.product.price}"></td>
         <td th:text="${s.stockAmount}"></td>
         <td>
+            <form action="/products/stock/edit" method="post">
+                <button type="submit" name="id" id="s.id" th:value="${s.product.id}" class="btn btn-primary">Opdatér</button>
+            </form>
+        </td>
+        <td>
             <form action="/products/delete" method="post">
                 <button type="submit" name="id" id="id" th:value="${s.product.id}" class="btn btn-danger">Slet</button>
             </form>

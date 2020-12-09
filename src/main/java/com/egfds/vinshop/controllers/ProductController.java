@@ -94,4 +94,19 @@ public class ProductController {
         model.addAttribute("products", productService.findAll());
         return "/admin/list";
     }
+
+    @PostMapping("/stock/edit")
+    public String editStock(@RequestParam("id") Long id, Model model){
+        model.addAttribute("stock", stockService.findById(id).get());
+        return "/stock/update";
+    }
+    @PostMapping("stock/update")
+    public String updateStock(@ModelAttribute Stock stock, @RequestParam("productId") Long id){
+        Product product = productService.findById(id).get();
+        stock.setProduct(product);
+        System.out.println("id for product is: " + id);
+        stockService.save(stock);
+        System.out.println(stock);
+        return "redirect:/products/list";
+    }
 }
