@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Kurv</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<table th:object="${cart}" class="table">
+    <thead>
+        <th>Produktnavn:</th>
+        <th>Antal</th>
+    </thead>
+    <tr th:each="item : *{items}">
+        <td th:text="${item.product.name}"></td>
+        <td th:text="${item.amount}"></td>
+    </tr>
+</table>
+</body>
+</html>

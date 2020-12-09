@@ -7,6 +7,5 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 public interface IUserService extends ICrudService<User, Long> {
-
     Optional<User> findByEmail(String email);
 }

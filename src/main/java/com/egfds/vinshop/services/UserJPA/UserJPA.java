@@ -46,6 +46,11 @@ public class UserJPA implements IUserService {
     }
 
     public Optional<User> findByEmail(String email){
-        return userRepo.findByEmail(email);
+        for(User u : userRepo.findAll()){
+            if(u.getEmail().equalsIgnoreCase(email)){
+                return Optional.ofNullable(u);
+            }
+        }
+        return Optional.empty();
     }
 }

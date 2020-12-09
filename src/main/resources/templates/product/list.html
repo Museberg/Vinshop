@@ -17,8 +17,13 @@
         <td th:text="${product.name}"></td>
         <td th:text="${product.price}"></td>
         <td>
+            <form action="/cart/add" method="post">
+                <button type="submit" name="id" th:value="${product.id}" class="btn btn-success">Tilføj til kurv</button>
+            </form>
+        </td>
+        <td>
             <form action="/products/delete" method="post">
-                <button type="submit" name="id" id="id" th:value="${product.id}" class="btn btn-danger">Slet</button>
+                <button type="submit" name="id" th:value="${product.id}" class="btn btn-danger">Slet</button>
             </form>
         </td>
     </tr>
