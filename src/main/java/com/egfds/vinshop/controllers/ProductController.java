@@ -72,6 +72,11 @@ public class ProductController {
             // Now that the product is saved to the value, we can save it to the db
             valueService.save(v);
         }
+        Stock tempStock = new Stock();
+        tempStock.setStockAmount(0);
+        tempStock.setProduct(newProduct);
+        stockService.save(tempStock);
+
         return "redirect:/products/create";
     }
 
