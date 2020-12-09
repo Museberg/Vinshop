@@ -2,50 +2,36 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:include="fragments/navbar :: headerFragment">
     <meta charset="UTF-8">
-    <title id="pageTitle">Add new product</title>
+    <title id="pageTitle">Redigér produkt</title>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<p>Select product type - this determines possible attributes</p>
-<form action="/products/create" method="post">
-    <select name="type">
-        <option value="0">Product type...</option>
-        <option
-                th:each="type : ${types}"
-                th:value="${type.id}"
-                th:text="${type.label}"
-        ></option>
-    </select>
-    <button type="submit">Choose</button>
-</form>
-
-<!-- Give this a read to understand WTF is going on
-https://stackoverflow.com/questions/36500731/how-to-bind-an-object-list-with-thymeleaf -->
-<form action="/products/add" method="post" th:object="${valueList}">
-    <table th:if="${product}">
+<form action="/products/update" th:object="${valueList}" method="post">
+    <table>
         <tr>
-            <td><label>Navn</label></td>
+            <td>Navn:</td>
             <td><input type="text" th:field="${product.name}"></td>
         </tr>
         <tr>
-            <td><label>Beskrivelse</label></td>
+            <td>Beskrivelse:</td>
             <td><input type="text" th:field="${product.description}"></td>
         </tr>
         <tr>
-            <td><label>Pris</label></td>
+            <td>Pris:</td>
             <td><input type="number" th:field="${product.price}"></td>
         </tr>
         <tr>
-            <td><label>Billede-URL</label></td>
+            <td>Billede-URL:</td>
             <td><input type="text" th:field="${product.pictureURL}"></td>
         </tr>
     </table>
-    <table th:if="${valueList}">
+    <table>
         <tr th:each="v, stat: *{values}">
-
             <td th:text="${v.attribute.label}"/>
             <td>
                 <input type="text" th:field="*{values[__${stat.index}__].value}">
+                <input type="hidden" th:field="*{values[__${stat.index}__].id}">
+                <input type="hidden" th:field="*{values[__${stat.index}__].product.id}">
                 <input type="hidden" th:field="*{values[__${stat.index}__].type.id}">
                 <input type="hidden" th:field="*{values[__${stat.index}__].type.label}">
                 <input type="hidden" th:field="*{values[__${stat.index}__].attribute.id}">
@@ -54,9 +40,7 @@ https://stackoverflow.com/questions/36500731/how-to-bind-an-object-list-with-thy
             </td>
         </tr>
     </table>
-    <button type="submit">Add</button>
+    <button type="submit">Gem ændringer</button>
 </form>
-
-
 </body>
 </html>

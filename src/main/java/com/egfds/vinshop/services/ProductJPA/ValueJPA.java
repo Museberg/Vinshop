@@ -55,4 +55,15 @@ public class ValueJPA implements IValueService {
         }
 
     }
+
+    @Override
+    public List<Value> getByProductId(Long productId) {
+        List<Value> returnValues = new ArrayList<>();
+        for(Value v : valueRepo.findAll()){
+            if(v.getProduct().getId() == productId){
+                returnValues.add(v);
+            }
+        }
+        return returnValues;
+    }
 }
