@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Redigér roller</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<form action="/owner/updateRoles" method="post">
+    <table class="table">
+        <thead>
+        <th>Fornavn</th>
+        <th>Efternavn</th>
+        <th>E-mail</th>
+        <th></th>
+        <th></th>
+        </thead>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:if="${user.roles == 'ROLE_USER'}">
+                <button name="newRole" th:value="${user.id} + 'ROLE_ADMIN'" type="submit" class="btn btn-warning">
+                    Gør til admin
+                </button>
+            </td>
+            <td th:if="${user.roles == 'ROLE_ADMIN'}">
+                <button name="newRole" th:value="${user.id} + 'ROLE_USER'" type="submit" class="btn btn-success">
+                    Gør til bruger
+                </button>
+            </td>
+            <td th:if="${user.roles != 'ROLE_OWNER'}">
+                <button name="newRole" th:value="${user.id} + 'ROLE_OWNER'" type="submit" class="btn btn-danger">
+                    Gør til ejer
+                </button>
+            </td>
+            <td th:if="${user.roles == 'ROLE_OWNER'}" />
+            <td th:if="${user.roles == 'ROLE_OWNER'}">
+                <button name="newRole" th:value="${user.id} + 'ROLE_ADMIN'" type="submit" class="btn btn-warning">
+                    Fjern ejerskab
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -5,9 +5,8 @@ import com.egfds.vinshop.repositories.UserRepos.IUserRepository;
 import com.egfds.vinshop.services.UserService.IUserService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+
 @Service
 public class UserJPA implements IUserService {
 
@@ -52,5 +51,17 @@ public class UserJPA implements IUserService {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<User> findAllByRole(String role) {
+        List<User> users = new ArrayList<>();
+        role = "ROLE_" + role.toUpperCase();
+        for(User u : userRepo.findAll()){
+            if(u.getRoles().equals(role)){
+                users.add(u);
+            }
+        }
+        return users;
     }
 }
