@@ -53,13 +53,14 @@ public class CartController {
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam long cartId, @RequestParam long id){
-        Cart cart = cartService.findById(cartId).get();
+    public String delete(@RequestParam long itemId){
+        CartItem cartItem = cartItemService.findById(itemId).get();
+        Cart cart = cartItemService.getCartFromCartItem(cartItem);
         // Removing cart item from cart
-        cart.getItems().remove(cartItemService.findById(id).get());
+        cart.getItems().remove(cartItem);
         cartService.save(cart);
         // Deleting cart item from database
-        cartItemService.deleteById(id);
+        cartItemService.delete(cartItem);
         return "redirect:/cart/view";
     }
 

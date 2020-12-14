@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<form action="/cart/update" method="post" th:object="${cart}">
+<form action="/cart/update" method="post" th:object="${cart}" id="updateForm">
     <input type="hidden" th:field="*{id}">
     <input type="hidden" th:field="*{user.id}">
     <table class="table">
@@ -25,15 +25,12 @@
             <td> <input type="hidden" th:field="*{items[__${stat.index}__].product}"> </td>
 
             <td>
-                <form action="/cart/delete" method="post" id="deleteForm">
-                    <input type="hidden" name="cartId" th:value="*{id}">
-                    <button form="deleteForm" type="submit" name="id" th:value="${item.id}" class="btn btn-danger">Slet</button>
-                </form>
+                <button formaction="/cart/delete" formmethod="post" type="submit" name="itemId" th:value="${item.id}" class="btn btn-danger">Slet</button>
             </td>
 
         </tr>
     </table>
-    <button type="submit" class="btn btn-primary">Opdatér</button>
+    <button type="submit" class="btn btn-primary" form="updateForm">Opdatér</button>
 </form>
 
 </body>
