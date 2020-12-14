@@ -7,15 +7,34 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<table th:object="${cart}" class="table">
-    <thead>
-        <th>Produktnavn:</th>
+<form action="/cart/update" method="post" th:object="${cart}">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{user.id}">
+    <table class="table">
+        <thead>
+        <th>Produktnavn</th>
         <th>Antal</th>
-    </thead>
-    <tr th:each="item : *{items}">
-        <td th:text="${item.product.name}"></td>
-        <td th:text="${item.amount}"></td>
-    </tr>
-</table>
+        <th></th>
+        <th></th>
+        <th></th>
+        </thead>
+        <tr th:each="item, stat : *{items}">
+            <td th:text="${item.product.name}"></td>
+            <td> <input type="text" th:field="*{items[__${stat.index}__].amount}"> </td>
+            <td> <input type="hidden" th:field="*{items[__${stat.index}__].id}"> </td>
+            <td> <input type="hidden" th:field="*{items[__${stat.index}__].product}"> </td>
+
+            <td>
+                <form action="/cart/delete" method="post" id="deleteForm">
+                    <input type="hidden" name="cartId" th:value="*{id}">
+                    <button form="deleteForm" type="submit" name="id" th:value="${item.id}" class="btn btn-danger">Slet</button>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Opdatér</button>
+</form>
+
 </body>
 </html>

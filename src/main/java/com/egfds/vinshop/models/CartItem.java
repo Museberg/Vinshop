@@ -38,4 +38,16 @@ public class CartItem {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", product=" + product +
+                ", amount=" + amount +
+                '}';
+    }
+
+    public CartItem() {
+    }
 }

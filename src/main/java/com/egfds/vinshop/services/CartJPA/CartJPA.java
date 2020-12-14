@@ -9,10 +9,7 @@ import com.egfds.vinshop.repositories.CartRepos.ICartRepo;
 import com.egfds.vinshop.services.CartService.ICartService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CartJPA implements ICartService {
@@ -88,7 +85,7 @@ public class CartJPA implements ICartService {
 
         // If not items have previously been added, the set is null, so we must set it
         if(cart.getItems() == null){
-            Set<CartItem> set = new HashSet<>(Arrays.asList(cartItem));
+            List<CartItem> set = new ArrayList<>(Arrays.asList(cartItem));
             cart.setItems(set);
         }
         // If cart already contains some items, we simply add it to the set

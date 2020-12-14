@@ -1,6 +1,7 @@
 package com.egfds.vinshop.models;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ public class Cart {
     private User user;
 
     @OneToMany
-    private Set<CartItem> items;
+    private List<CartItem> items;
 
     public long getId() {
         return id;
@@ -32,11 +33,33 @@ public class Cart {
         this.user = user;
     }
 
-    public Set<CartItem> getItems() {
+    public List<CartItem> getItems() {
         return items;
     }
 
-    public void setItems(Set<CartItem> items) {
+    public void setItems(List<CartItem> items) {
+        this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", items=" + items +
+                '}';
+    }
+
+    public Cart() {
+    }
+
+    public Cart(long id, User user, List<CartItem> items) {
+        this.id = id;
+        this.user = user;
+        this.items = items;
+    }
+
+    public Cart(List<CartItem> items) {
         this.items = items;
     }
 }

@@ -1,6 +1,7 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.Cart;
+import com.egfds.vinshop.models.CartItem;
 import com.egfds.vinshop.models.User;
 import com.egfds.vinshop.services.CartService.ICartItemService;
 import com.egfds.vinshop.services.CartService.ICartService;
@@ -10,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/cart")
@@ -52,6 +50,26 @@ public class CartController {
 
         model.addAttribute("cart", cart);
         return "cart/view";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam long cartId, @RequestParam long id){
+        Cart cart = cartService.findById(cartId).get();
+        // Removing cart item from cart
+        cart.getItems().remove(cartItemService.findById(id).get());
+        cartService.save(cart);
+        // Deleting cart item from database
+        cartItemService.deleteById(id);
+        return "redirect:/cart/view";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute Cart cart){
+        // Saving each cart item to the database
+        for(CartItem ct : cart.getItems()){
+            cartItemService.save(ct);
+        }
+        return "redirect:/cart/view";
     }
 
 }
