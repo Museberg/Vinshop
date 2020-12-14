@@ -35,12 +35,11 @@ public class HomeController {
     }
 
     @PostMapping("/update")
-    public String updateFarmInfo(@ModelAttribute FarmSummary farmSummary, @RequestParam("farmSummaryId") Long id) {
-        System.out.println("Here is the ID: " + id);
-        FarmSummary temp = farmSummaryService.findById(id).get();
+    public String updateFarmInfo(@ModelAttribute FarmSummary farmSummary) {
+        farmSummaryService.save(farmSummary);
+        /*FarmSummary temp = farmSummaryService.findById(farmSummary.getId()).get();
         temp.setAboutFarm(farmSummary.getAboutFarm());
-        farmSummaryService.save(temp);
-        System.out.println(temp.toString());
+        farmSummaryService.save(temp);*/
         return "redirect:/";
     }
 

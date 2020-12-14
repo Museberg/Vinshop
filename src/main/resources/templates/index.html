@@ -3,7 +3,7 @@
 <head th:include="fragments/navbar :: headerFragment">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title id="pageTitle">Hello world</title>
+    <title id="pageTitle">Velkommen til min vingård</title>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -11,13 +11,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" >
         <div class="carousel-item active">
-            <img class="d-block w-100" src="https://www.visitbritain.com/sites/default/files/styles/wysiwyg_image/public/consumer/1-vineyards-at-sunset.jpeg?itok=6YuP5N75" alt="First slide">
+            <img class="d-block w-100" th:src="${farmSummary.url1}" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="https://crushmag-online.com/wp-content/uploads/2017/12/Buitenverwachting-1x5.jpg" alt="Second slide">
+            <img class="d-block w-100" th:src="${farmSummary.url2}" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="https://static1.bigstockphoto.com/4/3/2/large1500/234732469.jpg" alt="Third slide">
+            <img class="d-block w-100" th:src="${farmSummary.url3}" alt="Third slide">
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
