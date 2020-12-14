@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Redigér ...</title>
+</head>
+<body>
+<form method="post" action="/update" th:object="${farmSummary}">
+    <table>
+        <tr>
+            <td th:field="*{id}" type="hidden" name="farmSummaryId" th:value="*{id}"></td>
+            <td>Om vingården:</td>
+                <td><input type="text" th:field="*{aboutFarm}"></td>
+        </tr>
+    </table>
+    <button type="submit">Gem Ændringer</button>
+</form>
+
+</body>
+</html>
