@@ -17,8 +17,7 @@ public class Address {
     private String streetNumber;
 
     @ManyToOne
-    @JoinColumn(name = "zipCode_id")
-    private Zip zipCode;
+    private Zip zip;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users;
@@ -55,12 +54,12 @@ public class Address {
         this.streetNumber = streetNumber;
     }
 
-    public Zip getZipCode() {
-        return zipCode;
+    public Zip getZip() {
+        return zip;
     }
 
-    public void setZipCode(Zip zipCode) {
-        this.zipCode = zipCode;
+    public void setZip(Zip zipCode) {
+        this.zip = zipCode;
     }
 
     public Set<User> getUsers() {
@@ -77,7 +76,7 @@ public class Address {
                 "id=" + id +
                 ", street='" + street + '\'' +
                 ", streetNumber='" + streetNumber + '\'' +
-                ", zipCode=" + zipCode +
+                ", zipCode=" + zip +
                 ", users=" + users +
                 '}';
     }

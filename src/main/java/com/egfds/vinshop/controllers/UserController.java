@@ -6,6 +6,7 @@ import com.egfds.vinshop.models.Zip;
 import com.egfds.vinshop.services.UserService.IAddressService;
 import com.egfds.vinshop.services.UserService.IUserService;
 import com.egfds.vinshop.services.UserService.IZipService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,32 @@ public class UserController {
         this.zipService = zipService;
     }
 
+    @GetMapping("/user/about-me")
+    public String user(Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByEmail(email).get();
+        Address address = addressService.findById(user.getAddress().getId()).get();
+        Zip zip = zipService.findById(address.getZip().getId()).get();
+
+        model.addAttribute("user", user);
+        model.addAttribute("address", address);
+        model.addAttribute("zip", zip);
+        return "user/about-me";
+    }
+
+    @PostMapping("/user/update")
+    public String update(@RequestParam("user_id") long userId, @ModelAttribute User user, @ModelAttribute Address address, @ModelAttribute Zip zip) {
+        user.setId(userId);
+
+        System.out.println(user);
+        System.out.println(address);
+        System.out.println(zip);
+
+        zipService.save(zip);
+        addressService.save(address);
+        userService.save(user);
+        return "redirect:/";
+    }
 
     @GetMapping("/signup")
     public String signUp(Model model) {
@@ -34,7 +61,7 @@ public class UserController {
     @PostMapping("/create")
     public String create(@ModelAttribute User user, @ModelAttribute Address address, @ModelAttribute Zip zip){
         zipService.save(zip);
-        address.setZipCode(zip);
+        address.setZip(zip);
 
         addressService.save(address);
         user.setAddress(address);
