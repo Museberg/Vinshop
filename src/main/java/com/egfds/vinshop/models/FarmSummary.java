@@ -1,6 +1,9 @@
 package com.egfds.vinshop.models;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class FarmSummary {
@@ -9,15 +12,26 @@ public class FarmSummary {
     private Long id;
     @Column(columnDefinition = "varchar(1500)")
     private String aboutFarm;
-    @Column
+    @Column(columnDefinition = "varchar(500)")
     private String url1;
-    @Column
+    @Column(columnDefinition = "varchar(500)")
     private String url2;
-    @Column
+    @Column(columnDefinition = "varchar(500)")
     private String url3;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Picture> pictures;
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
     }
 
     public void setId(Long id) {
