@@ -90,11 +90,13 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute ValueList valueList){
+    public String update(@ModelAttribute ValueList valueList, @ModelAttribute Product product){
         for(Value v : valueList.getValues()){
             System.out.println(v);
             valueService.save(v);
         }
+        productService.save(product);
+        System.out.println(product);
         return "redirect:/products/list";
     }
 

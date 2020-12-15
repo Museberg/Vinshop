@@ -8,6 +8,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <form action="/products/update" th:object="${valueList}" method="post">
     <table>
+        <input type="hidden" th:field="${product.id}">
         <tr>
             <td>Navn:</td>
             <td><input type="text" th:field="${product.name}"></td>
