@@ -43,4 +43,13 @@ public class StockJPA implements IStockService {
     public Optional<Stock> findById(Long aLong) {
         return iStockRepo.findById(aLong);
     }
+
+    @Override
+    public void deleteByProductId(long id) {
+        for(Stock s : iStockRepo.findAll()) {
+            if(s.getProduct().getId() == id) {
+                iStockRepo.delete(s);
+            }
+        }
+    }
 }

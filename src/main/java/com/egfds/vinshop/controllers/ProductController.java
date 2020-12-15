@@ -90,6 +90,7 @@ public class ProductController {
     @PostMapping("/delete")
     public String delete(@RequestParam("id") Long id){
         valueService.deleteByProductId(id);
+        stockService.deleteByProductId(id);
         productService.deleteById(id);
         return "redirect:/products/list";
     }
