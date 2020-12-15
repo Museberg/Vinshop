@@ -10,13 +10,13 @@ public class FarmSummary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "varchar(1500)")
+    @Column(columnDefinition = "varchar(6000)")
     private String aboutFarm;
-    @Column(columnDefinition = "varchar(500)")
+    @Column(columnDefinition = "varchar(1500)")
     private String url1;
-    @Column(columnDefinition = "varchar(500)")
+    @Column(columnDefinition = "varchar(1500)")
     private String url2;
-    @Column(columnDefinition = "varchar(500)")
+    @Column(columnDefinition = "varchar(1500)")
     private String url3;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
