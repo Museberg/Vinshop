@@ -6,6 +6,7 @@ import com.egfds.vinshop.models.Zip;
 import com.egfds.vinshop.services.UserService.IAddressService;
 import com.egfds.vinshop.services.UserService.IUserService;
 import com.egfds.vinshop.services.UserService.IZipService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/user/about-me")
-    public String user(Model model) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    public String user(Model model, Authentication auth) {
+        String email = auth.getName();
         User user = userService.findByEmail(email).get();
         Address address = addressService.findById(user.getAddress().getId()).get();
         Zip zip = zipService.findById(address.getZip().getId()).get();
@@ -70,6 +71,25 @@ public class UserController {
 
         userService.save(user);
 
+        return "redirect:/";
+    }
+
+    @GetMapping("user/password-reset")
+    public String passwordReset() {
+        return "user/password-reset";
+    }
+
+    @PostMapping("user/update-password")
+    public String updatePassword(Authentication auth, @RequestParam(required = false, name="newPassword") String newPassword, @RequestParam(required = false, name="password") String password) {
+        String email = auth.getName();
+        User user = userService.findByEmail(email).get();
+
+        if(!user.getPassword().equals(password)) {
+            return "redirect:/user/password-reset";
+        }
+
+        user.setPassword(newPassword);
+        userService.save(user);
         return "redirect:/";
     }
 

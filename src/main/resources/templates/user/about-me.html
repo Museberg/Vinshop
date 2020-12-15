@@ -7,60 +7,63 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<h1>This should be only be accesible for users</h1>
-    <div class="card d-inline-flex ml-4">
-        <div class="card-body">
-            <h5 class="card-title">
-                <span th:text="${user.firstName}"></span>
-                <span th:text="${user.lastName}"></span>
-                (<span th:text="${user.email}"></span>)
-            </h5>
-            <h6 class="card-subtitle text-muted mb-2">Ændr dine brugeroplysninger</h6>
-            <form action="/user/update" method="post">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Fornavn</span>
-                        <input type="text" th:field="${user.firstName}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Efternavn</span>
-                        <input type="text" th:field="${user.lastName}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Email</span>
-                        <input type="text" th:field="${user.email}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Adgangskode</span>
-                        <a href="/user/reset-password">Nulstil Adgangskode</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Postnummer</span>
-                        <input type="text" th:field="${zip.zipCode}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>By</span>
-                        <input type="text" th:field="${zip.city}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Gadenavn</span>
-                        <input type="text" th:field="${address.street}">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Husnummer</span>
-                        <input type="text" th:field="${address.streetNumber}">
-                    </li>
-                </ul>
-                <input type="hidden" name="user_id" th:value="${user.id}">
-                <input type="hidden" th:field="${user.password}">
-                <input type="hidden" th:field="${user.address}">
-                <input type="hidden" th:field="${user.roles}">
-                <input type="hidden" name="address_id" th:value="${address.id}">
-                <input type="hidden" th:field="${address.zip}">
-                <input type="hidden" name="zip_id" th:value="${zip.id}">
-                <button class="btn btn-primary" type="submit">Gem Oplysninger</button>
-            </form>
+<div class="container">
+    <div class="col-md-12">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <span th:text="${user.firstName}"></span>
+                    <span th:text="${user.lastName}"></span>
+                    (<span th:text="${user.email}"></span>)
+                </h5>
+                <h6 class="card-subtitle text-muted mb-2">Ændr dine brugeroplysninger</h6>
+                <form action="/user/update" method="post">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Fornavn</span>
+                            <input type="text" th:field="${user.firstName}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Efternavn</span>
+                            <input type="text" th:field="${user.lastName}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Email</span>
+                            <input type="text" th:field="${user.email}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Adgangskode</span>
+                            <a href="/user/password-reset">Nulstil Adgangskode</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Postnummer</span>
+                            <input type="text" th:field="${zip.zipCode}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>By</span>
+                            <input type="text" th:field="${zip.city}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Gadenavn</span>
+                            <input type="text" th:field="${address.street}">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Husnummer</span>
+                            <input type="text" th:field="${address.streetNumber}">
+                        </li>
+                    </ul>
+                    <input type="hidden" name="user_id" th:value="${user.id}">
+                    <input type="hidden" th:field="${user.password}">
+                    <input type="hidden" th:field="${user.address}">
+                    <input type="hidden" th:field="${user.roles}">
+                    <input type="hidden" name="address_id" th:value="${address.id}">
+                    <input type="hidden" th:field="${address.zip}">
+                    <input type="hidden" name="zip_id" th:value="${zip.id}">
+                    <button class="btn btn-primary" type="submit">Gem Oplysninger</button>
+                </form>
+            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

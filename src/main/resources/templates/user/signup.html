@@ -6,47 +6,83 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<h1>Opret brugerkonto</h1>
-<form method="post" action="/create">
 
-    <table>
-        <tr>
-            <td><input type="hidden" th:field="${user.roles}"></td>
-        </tr>
-        <tr>
-            <td>Fornavn: </td>
-            <td><input type="text" th:field="${user.firstName}"></td>
-        </tr>
-        <tr>
-            <td>Efternavn: </td>
-            <td><input type="text" th:field="${user.lastName}"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="${user.email}"></td>
-        </tr>
-        <tr>
-            <td>Adgangskode:</td>
-            <td><input type="password" th:field="${user.password}"></td>
-        </tr>
-        <tr>
-            <td>Postnummer:</td>
-            <td><input type="text" th:field="${zip.zipCode}"></td>
-        </tr>
-        <tr>
-            <td>By:</td>
-            <td><input type="text" th:field="${zip.city}"></td>
-        </tr>
-        <tr>
-            <td>Gadenavn:</td>
-            <td><input type="text" th:field="${address.street}"></td>
-        </tr>
-        <tr>
-            <td>Husnummer:</td>
-            <td><input type="text" th:field="${address.streetNumber}"></td>
-        </tr>
-    </table>
-    <button type="submit" value="Opret Konto">Opret Konto</button>
-</form>
+<div class="container">
+    <div class="col-md-12">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Opret konto
+                </h5>
+
+                <form action="/create" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="first-name">Fornavn</label>
+                            <input type="text" class="form-control" id="first-name" placeholder="Fornavn" th:field="${user.firstName}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="last-name">Efternavn</label>
+                            <input type="text" class="form-control" id="last-name" placeholder="Efternavn" th:field="${user.lastName}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" th:field="${user.email}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="password">Adgangskode</label>
+                            <input type="password" class="form-control" id="password" placeholder="Adgangskode" th:field="${user.password}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password-confirm">Bekræft adgangskode</label>
+                            <input type="password" class="form-control" id="password-confirm" placeholder="Adgangskode">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="street">Gadenavn</label>
+                            <input type="text" class="form-control" id="street" placeholder="Gadenavn" th:field="${address.street}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number">Husnummer</label>
+                            <input type="text" class="form-control" id="number" placeholder="Husnummer, etage, dørnummer" th:field="${address.streetNumber}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">By</label>
+                            <input type="text" class="form-control" id="city" placeholder="By" th:field="${zip.city}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="zip">Postnummer</label>
+                            <input type="text" class="form-control" id="zip" placeholder="Postnummer" th:field="${zip.zipCode}">
+                        </div>
+                    </div>
+                    <input type="hidden" th:field="${user.roles}">
+                    <button class="btn btn-primary" type="submit">Opret Konto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("password-confirm");
+
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Adgangskoderne er ikke ens");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
 </body>
 </html>
