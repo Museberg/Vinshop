@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -30,7 +32,15 @@ public class HomeController {
 
     @GetMapping("/aboutFarm/edit")
     public String editFarmInfo(Model model){
-        model.addAttribute("farmSummary", farmSummaryService.findById((long) 1).get());
+        Optional<FarmSummary> optionalFarmSummary = farmSummaryService.findById((long) 1);
+        if(optionalFarmSummary.isEmpty()){
+            FarmSummary farmSummary = new FarmSummary();
+            farmSummaryService.save(farmSummary);
+            model.addAttribute("farmSummary", farmSummary);
+        }
+        else{
+            model.addAttribute("farmSummary", optionalFarmSummary.get());
+        }
         return "aboutFarm/edit";
     }
 
