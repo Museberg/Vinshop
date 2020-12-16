@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Redigér ...</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<h1>Redigér forside</h1>
+<form method="post" action="/update" th:object="${farmSummary}">
+    <table>
+        <tr>
+            <td><input type="hidden" th:field="*{id}"></td>
+            <tr>
+                <td>Url 1:</td>
+                <td><input  maxlength="1500" style="width: 800px" type="text" th:field="*{url1}"></td>
+            </tr>
+            <tr>
+                <td>Url 2:</td>
+                <td><input style="width: 800px" type="text" th:field="*{url2}" maxlength="1500"></td>
+            </tr>
+            <tr>
+                <td>Url 3:</td>
+                <td><input style="width: 800px" type="text" th:field="*{url3}" maxlength="1500"></td>
+            </tr>
+            <tr>
+                <td>Om vingården:</td>
+                <td><textarea maxlength="6000" id="myTextarea" style="height:200px;font-size:14pt;" type="text" th:field="*{aboutFarm}"/></td>
+                <td id="textCounter" style="font:15px Arial;">1000 Characters</td>
+            </tr>
+        <tr>
+        </tr>
+        </tr>
+    </table>
+    <button type="submit">Gem Ændringer</button>
+</form>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        $('#myTextarea').on('input propertychange', function() {
+            CharLimit(this, 6000);
+        });
+    });
+
+    function CharLimit(input, maxChar) {
+        var len = $(input).val().length;
+        $('#textCounter').text(maxChar - len + ' characters remaining');
+
+        if (len > maxChar) {
+            $(input).val($(input).val().substring(0, maxChar));
+            $('#textCounter').text(0 + ' characters remaining');
+        }
+    }
+</script>
+</html>
