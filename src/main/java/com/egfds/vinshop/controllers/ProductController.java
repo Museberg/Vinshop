@@ -34,17 +34,18 @@ public class ProductController {
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("types", typeService.findAll());
+        model.addAttribute("selectedType", (long) 0);
         return "product/create";
     }
 
     @PostMapping("/create")
     public String create(Model model, @RequestParam long type){
-        System.out.println("TYPE ID: " + type);
         if(type == 0){ // No product type chosen
             return "redirect:/products/create";
         }
         model.addAttribute("product", new Product());
         model.addAttribute("types", typeService.findAll());
+        model.addAttribute("selectedType", type);
 
         List<Attribute> attributes = attributeService.getAttributesByType(type);
         // Creating a value object for each attribute. Value table contains the values for the attributes

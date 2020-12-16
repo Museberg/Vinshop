@@ -14,6 +14,7 @@
                 th:each="type : ${types}"
                 th:value="${type.id}"
                 th:text="${type.label}"
+                th:selected="${type.id == selectedType}"
         ></option>
     </select>
     <button type="submit">Choose</button>
