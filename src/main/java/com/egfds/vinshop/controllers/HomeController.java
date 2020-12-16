@@ -26,7 +26,15 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("farmSummary", farmSummaryService.findById((long) 1).get());
+        Optional<FarmSummary> optionalFarmSummary = farmSummaryService.findById((long) 1);
+        if(optionalFarmSummary.isEmpty()){
+            FarmSummary farmSummary = new FarmSummary();
+            farmSummaryService.save(farmSummary);
+            model.addAttribute("farmSummary", farmSummary);
+        }
+        else{
+            model.addAttribute("farmSummary", optionalFarmSummary.get());
+        }
         return "index";
     }
 
