@@ -9,7 +9,7 @@
 <p>Select product type - this determines possible attributes</p>
 <form action="/products/create" method="post">
     <select name="type">
-        <option value="0">Product type...</option>
+        <option value="0">Produkttype...</option>
         <option
                 th:each="type : ${types}"
                 th:value="${type.id}"

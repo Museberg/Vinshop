@@ -64,17 +64,15 @@ public class ProductController {
     @PostMapping("/add")
     public String add(Model model, @ModelAttribute ValueList wrapper, @ModelAttribute Product product){
         model.addAttribute("types", typeService.findAll());
-        for(Value v : wrapper.getValues()){
-            System.out.println(v);
-        }
-        System.out.println(product);
 
         Product newProduct = productService.save(product);
         // We now have a list of values with type, attribute and value. We just need to add the product to them
-        for(Value v : wrapper.getValues()){
-            v.setProduct(newProduct);
-            // Now that the product is saved to the value, we can save it to the db
-            valueService.save(v);
+        if(wrapper.getValues() != null){
+            for(Value v : wrapper.getValues()){
+                v.setProduct(newProduct);
+                // Now that the product is saved to the value, we can save it to the db
+                valueService.save(v);
+            }
         }
         Stock tempStock = new Stock();
         tempStock.setStockAmount(0);
@@ -102,13 +100,13 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute ValueList valueList, @ModelAttribute Product product){
-        for(Value v : valueList.getValues()){
-            System.out.println(v);
-            valueService.save(v);
+    public String update(@ModelAttribute ValueList wrapper, @ModelAttribute Product product){
+        if(wrapper.getValues() != null){
+            for(Value v : wrapper.getValues()){
+                valueService.save(v);
+            }
         }
         productService.save(product);
-        System.out.println(product);
         return "redirect:/products/list";
     }
 
@@ -136,9 +134,7 @@ public class ProductController {
     public String updateStock(@ModelAttribute Stock stock, @RequestParam("productId") Long id){
         Product product = productService.findById(id).get();
         stock.setProduct(product);
-        System.out.println("id for product is: " + id);
         stockService.save(stock);
-        System.out.println(stock);
         return "redirect:/products/list";
     }
 }
