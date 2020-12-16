@@ -126,16 +126,11 @@ public class ProductController {
         return "/admin/list";
     }
 
-    @PostMapping("/stock/edit")
-    public String editStock(@RequestParam("id") Long id, Model model){
-        model.addAttribute("stock", stockService.findById(id).get());
-        return "/stock/update";
-    }
-    @PostMapping("stock/update")
-    public String updateStock(@ModelAttribute Stock stock, @RequestParam("productId") Long id){
-        Product product = productService.findById(id).get();
-        stock.setProduct(product);
-        stockService.save(stock);
+    @PostMapping("stock/edit")
+    public String updateStock(@RequestParam("stockId") long id, @RequestParam("stockAmount") int stockAmount){
+        Stock temp = stockService.findById(id).get();
+        temp.setStockAmount(stockAmount);
+        stockService.save(temp);
         return "redirect:/products/list";
     }
 }
