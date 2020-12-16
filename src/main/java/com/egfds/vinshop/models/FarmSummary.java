@@ -69,4 +69,13 @@ public class FarmSummary {
     public void setUrl3(String url3) {
         this.url3 = url3;
     }
+
+    public FarmSummary(Long id, String aboutFarm, String url1) {
+        this.id = id;
+        this.aboutFarm = aboutFarm;
+        this.url1 = url1;
+    }
+
+    public FarmSummary() {
+    }
 }

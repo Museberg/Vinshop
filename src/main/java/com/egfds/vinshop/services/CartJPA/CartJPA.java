@@ -96,4 +96,14 @@ public class CartJPA implements ICartService {
         cartRepo.save(cart);
     }
 
+    @Override
+    public Optional<Cart> getCartFromCartItem(CartItem cartItem) {
+        for(Cart c : cartRepo.findAll()){
+            if(c.getItems().contains(cartItem)){
+                return Optional.ofNullable(c);
+            }
+        }
+        return Optional.empty();
+    }
+
 }

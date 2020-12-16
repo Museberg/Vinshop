@@ -1,9 +1,10 @@
 package com.egfds.vinshop.models;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
-public class Stock {
+public class Stock implements Comparable<Stock>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -45,5 +46,11 @@ public class Stock {
                 ", product=" + product +
                 ", stockAmount=" + stockAmount +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Stock o) {
+        return Comparator.comparing(Product::getName)
+                .compare(this.product, o.product);
     }
 }

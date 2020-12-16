@@ -6,4 +6,5 @@ import com.egfds.vinshop.services.ICrudService;
 
 public interface ICartItemService extends ICrudService<CartItem, Long> {
     public Cart getCartFromCartItem(CartItem cartItem);
+    public void deleteCartItemByProductId(long id);
 }

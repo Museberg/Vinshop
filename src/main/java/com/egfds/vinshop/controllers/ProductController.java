@@ -1,6 +1,8 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.*;
+import com.egfds.vinshop.services.CartService.ICartItemService;
+import com.egfds.vinshop.services.CartService.ICartService;
 import com.egfds.vinshop.services.ProductService.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +20,15 @@ public class ProductController {
     private IProductService productService;
     private IValueService valueService;
     private IStockService stockService;
+    private ICartItemService cartItemService;
 
-    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService) {
+    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService, ICartItemService cartItemService) {
         this.typeService = typeService;
         this.attributeService = attributeService;
         this.productService = productService;
         this.valueService = valueService;
         this.stockService = stockService;
+        this.cartItemService = cartItemService;
     }
 
     @GetMapping("/create")
@@ -83,7 +87,10 @@ public class ProductController {
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("products", productService.findAll());
-        model.addAttribute("stock", stockService.findAll());
+        List<Stock> stock = new ArrayList<>();
+        stock.addAll(stockService.findAll());
+        Collections.sort(stock);
+        model.addAttribute("stock", stock);
         return "product/list";
     }
 
@@ -107,6 +114,7 @@ public class ProductController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam("id") Long id){
+        cartItemService.deleteCartItemByProductId(id);
         valueService.deleteByProductId(id);
         stockService.deleteByProductId(id);
         productService.deleteById(id);

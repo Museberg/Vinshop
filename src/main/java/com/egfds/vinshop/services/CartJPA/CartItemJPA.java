@@ -63,4 +63,21 @@ public class CartItemJPA implements ICartItemService {
         BigInteger val = (BigInteger) query.getSingleResult();
         return cartRepo.findById(val.longValue()).get();
     }
+
+    @Override
+    public void deleteCartItemByProductId(long id) {
+        for(CartItem ct : cartItemRepo.findAll()){
+            if(ct.getProduct().getId() == id){
+                // Deleting the cart item from its cart
+                for(Cart c : cartRepo.findAll()){
+                    if(c.getItems().contains(ct)){
+                        c.getItems().remove(ct);
+                        cartRepo.save(c);
+                    }
+                }
+                // Removing cart item from database
+                cartItemRepo.delete(ct);
+            }
+        }
+    }
 }
