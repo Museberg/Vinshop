@@ -1,10 +1,11 @@
 package com.egfds.vinshop.models;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -93,5 +94,11 @@ public class User {
                 ", roles='" + roles + '\'' +
                 ", address=" + address +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return Comparator.comparing(User::getEmail)
+                .compare(this, o);
     }
 }
