@@ -82,6 +82,24 @@ public class ProductController {
         return "product/list";
     }
 
+    @GetMapping("/edit")
+    public String edit(@RequestParam("id") Long id, Model model){
+        model.addAttribute("product", productService.findById(id).get());
+        model.addAttribute("valueList", new ValueList(valueService.getByProductId(id))); // Values of the product
+        return "product/edit";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute ValueList valueList, @ModelAttribute Product product){
+        for(Value v : valueList.getValues()){
+            System.out.println(v);
+            valueService.save(v);
+        }
+        productService.save(product);
+        System.out.println(product);
+        return "redirect:/products/list";
+    }
+
     @PostMapping("/delete")
     public String delete(@RequestParam("id") Long id){
         valueService.deleteByProductId(id);
