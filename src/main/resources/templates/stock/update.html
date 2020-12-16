@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Opret produkttype</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<form action="/products/stock/update" method="post" th:object="${stock}">
+    <table>
+        <tr>
+            <td>Navn</td>
+            <td th:text="*{product.name}"></td>
+            <td><input type="hidden" th:value="*{product.id}" name="productId"></td>
+        </tr>
+        <tr>
+            <td>Pris</td>
+            <td th:text="*{product.price}"></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Lagerbeholdning</td>
+            <td><input type="text" th:field="*{stockAmount}"></td>
+        </tr>
+    </table>
+    <button type="submit" value="Gem ændring" class="btn btn-success">Gem</button>
+</form>
+</body>
+</html>

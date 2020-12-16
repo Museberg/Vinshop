@@ -1,10 +1,7 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.*;
-import com.egfds.vinshop.services.ProductService.IAttributeService;
-import com.egfds.vinshop.services.ProductService.IProductService;
-import com.egfds.vinshop.services.ProductService.IProductTypeService;
-import com.egfds.vinshop.services.ProductService.IValueService;
+import com.egfds.vinshop.services.ProductService.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +17,14 @@ public class ProductController {
     private IAttributeService attributeService;
     private IProductService productService;
     private IValueService valueService;
+    private IStockService stockService;
 
-    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService) {
+    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService) {
         this.typeService = typeService;
         this.attributeService = attributeService;
         this.productService = productService;
         this.valueService = valueService;
+        this.stockService = stockService;
     }
 
     @GetMapping("/create")
@@ -73,12 +72,18 @@ public class ProductController {
             // Now that the product is saved to the value, we can save it to the db
             valueService.save(v);
         }
+        Stock tempStock = new Stock();
+        tempStock.setStockAmount(0);
+        tempStock.setProduct(newProduct);
+        stockService.save(tempStock);
+
         return "redirect:/products/create";
     }
 
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("products", productService.findAll());
+        model.addAttribute("stock", stockService.findAll());
         return "product/list";
     }
 
@@ -103,6 +108,7 @@ public class ProductController {
     @PostMapping("/delete")
     public String delete(@RequestParam("id") Long id){
         valueService.deleteByProductId(id);
+        stockService.deleteByProductId(id);
         productService.deleteById(id);
         return "redirect:/products/list";
     }
@@ -111,5 +117,20 @@ public class ProductController {
     public String adminList(Model model) {
         model.addAttribute("products", productService.findAll());
         return "/admin/list";
+    }
+
+    @PostMapping("/stock/edit")
+    public String editStock(@RequestParam("id") Long id, Model model){
+        model.addAttribute("stock", stockService.findById(id).get());
+        return "/stock/update";
+    }
+    @PostMapping("stock/update")
+    public String updateStock(@ModelAttribute Stock stock, @RequestParam("productId") Long id){
+        Product product = productService.findById(id).get();
+        stock.setProduct(product);
+        System.out.println("id for product is: " + id);
+        stockService.save(stock);
+        System.out.println(stock);
+        return "redirect:/products/list";
     }
 }
