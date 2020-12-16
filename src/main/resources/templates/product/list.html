@@ -13,6 +13,8 @@
     <th>Lagerbeholdning</th>
     <th></th>
     <th></th>
+    <th></th>
+    <th></th>
     </thead>
     <tr th:each="s : ${stock}">
         <td th:text="${s.product.name}"></td>
@@ -35,7 +37,7 @@
         </td>
         <td>
             <form action="/products/delete" method="post">
-                <button type="submit" name="id" th:value="${product.id}" class="btn btn-danger">Slet</button>
+                <button type="submit" name="id" th:value="${s.product.id}" class="btn btn-danger">Slet</button>
             </form>
         </td>
     </tr>
