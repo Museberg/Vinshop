@@ -58,7 +58,6 @@ public class Zip {
                 "id=" + id +
                 ", zipCode='" + zipCode + '\'' +
                 ", city='" + city + '\'' +
-                ", address=" + address +
                 '}';
     }
 }

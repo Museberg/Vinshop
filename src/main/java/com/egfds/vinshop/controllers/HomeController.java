@@ -29,9 +29,4 @@ public class HomeController {
     public String owner() {
         return "owner/owner";
     }
-
-    @GetMapping("/user")
-    public String user() {
-        return "user/user";
-    }
 }
