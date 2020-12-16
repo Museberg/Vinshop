@@ -13,6 +13,7 @@
         <th>Fornavn</th>
         <th>Efternavn</th>
         <th>E-mail</th>
+        <th>Rolle</th>
         <th></th>
         <th></th>
         </thead>
@@ -20,6 +21,9 @@
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
+            <td th:if="${user.roles == 'ROLE_USER'}">Bruger</td>
+            <td th:if="${user.roles == 'ROLE_ADMIN'}">Admin</td>
+            <td th:if="${user.roles == 'ROLE_OWNER'}">Ejer</td>
             <td th:if="${user.roles == 'ROLE_USER'}">
                 <button name="newRole" th:value="${user.id} + 'ROLE_ADMIN'" type="submit" class="btn btn-warning">
                     Gør til admin
