@@ -1,6 +1,8 @@
 package com.egfds.vinshop.controllers;
 
 import com.egfds.vinshop.models.*;
+import com.egfds.vinshop.services.CartService.ICartItemService;
+import com.egfds.vinshop.services.CartService.ICartService;
 import com.egfds.vinshop.services.ProductService.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,29 +20,32 @@ public class ProductController {
     private IProductService productService;
     private IValueService valueService;
     private IStockService stockService;
+    private ICartItemService cartItemService;
 
-    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService) {
+    public ProductController(IProductTypeService typeService, IAttributeService attributeService, IProductService productService, IValueService valueService, IStockService stockService, ICartItemService cartItemService) {
         this.typeService = typeService;
         this.attributeService = attributeService;
         this.productService = productService;
         this.valueService = valueService;
         this.stockService = stockService;
+        this.cartItemService = cartItemService;
     }
 
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("types", typeService.findAll());
+        model.addAttribute("selectedType", (long) 0);
         return "product/create";
     }
 
     @PostMapping("/create")
     public String create(Model model, @RequestParam long type){
-        System.out.println("TYPE ID: " + type);
         if(type == 0){ // No product type chosen
             return "redirect:/products/create";
         }
         model.addAttribute("product", new Product());
         model.addAttribute("types", typeService.findAll());
+        model.addAttribute("selectedType", type);
 
         List<Attribute> attributes = attributeService.getAttributesByType(type);
         // Creating a value object for each attribute. Value table contains the values for the attributes
@@ -60,17 +65,15 @@ public class ProductController {
     @PostMapping("/add")
     public String add(Model model, @ModelAttribute ValueList wrapper, @ModelAttribute Product product){
         model.addAttribute("types", typeService.findAll());
-        for(Value v : wrapper.getValues()){
-            System.out.println(v);
-        }
-        System.out.println(product);
 
         Product newProduct = productService.save(product);
         // We now have a list of values with type, attribute and value. We just need to add the product to them
-        for(Value v : wrapper.getValues()){
-            v.setProduct(newProduct);
-            // Now that the product is saved to the value, we can save it to the db
-            valueService.save(v);
+        if(wrapper.getValues() != null){
+            for(Value v : wrapper.getValues()){
+                v.setProduct(newProduct);
+                // Now that the product is saved to the value, we can save it to the db
+                valueService.save(v);
+            }
         }
         Stock tempStock = new Stock();
         tempStock.setStockAmount(0);
@@ -83,7 +86,10 @@ public class ProductController {
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("products", productService.findAll());
-        model.addAttribute("stock", stockService.findAll());
+        List<Stock> stock = new ArrayList<>();
+        stock.addAll(stockService.findAll());
+        Collections.sort(stock);
+        model.addAttribute("stock", stock);
         return "product/list";
     }
 
@@ -95,18 +101,19 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute ValueList valueList, @ModelAttribute Product product){
-        for(Value v : valueList.getValues()){
-            System.out.println(v);
-            valueService.save(v);
+    public String update(@ModelAttribute ValueList wrapper, @ModelAttribute Product product){
+        if(wrapper.getValues() != null){
+            for(Value v : wrapper.getValues()){
+                valueService.save(v);
+            }
         }
         productService.save(product);
-        System.out.println(product);
         return "redirect:/products/list";
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam("id") Long id){
+        cartItemService.deleteCartItemByProductId(id);
         valueService.deleteByProductId(id);
         stockService.deleteByProductId(id);
         productService.deleteById(id);
