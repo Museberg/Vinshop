@@ -14,15 +14,16 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
     </thead>
     <tr th:each="s : ${stock}">
         <td th:text="${s.product.name}"></td>
         <td th:text="${s.product.price}"></td>
-        <td th:text="${s.stockAmount}"></td>
+        <!--<td><input name="productId" type="text" th:value="${s.stockAmount}"></td>-->
         <td>
             <form action="/products/stock/edit" method="post">
-                <button type="submit" name="id" id="s.id" th:value="${s.id}" class="btn btn-primary">Opdatér lager</button>
+                <input type="hidden" name="stockId" th:value="${s.id}">
+                <input name="stockAmount" type="text" th:value="${s.stockAmount}">
+                <button type="submit" id="s.id" value="productId" class="btn btn-primary">Opdatér lager</button>
             </form>
         </td>
         <td>
