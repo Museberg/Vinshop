@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class ProductTypeController {
     IProductTypeService productTypeService;
     IAttributeService attributeService;
+    IValueService valueService;
 
-    public ProductTypeController(IProductTypeService productTypeService, IAttributeService attributeService) {
+    public ProductTypeController(IProductTypeService productTypeService, IAttributeService attributeService, IValueService valueService) {
         this.productTypeService = productTypeService;
         this.attributeService = attributeService;
+        this.valueService = valueService;
     }
 
     @GetMapping("/create")
@@ -51,5 +53,18 @@ public class ProductTypeController {
         }
         productTypeService.save(type);
         return "redirect:/productTypes/list";
+    }
+
+    @PostMapping("/deleteAttribute")
+    public String deleteAttribute(@RequestParam long attributeId, @ModelAttribute ProductType type, Model model){
+        System.out.println("ATTRIBUTE ID: " + attributeId);
+        // Removing all values linked to the attribute
+        valueService.deleteByAttributeId(attributeId);
+        // Removing attribute
+        attributeService.deleteById(attributeId);
+
+        model.addAttribute("type", type);
+        model.addAttribute("attributeList", new AttributeList(attributeService.getAttributesByType(type.getId())));
+        return "productType/edit";
     }
 }

@@ -7,21 +7,29 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <form action="/productTypes/update" method="post" th:object="${attributeList}">
-    <table>
+    <table class="table table-striped">
         <input type="hidden" th:field="${type.id}">
         <tr>
+            <td><label>Produkttype:</label></td>
             <td><input type="text" th:field="${type.label}"></td>
+            <td></td>
         </tr>
 
         <tr th:each="attribute, stat : *{attributes}">
-            <td><input type="hidden" th:field="*{attributes[__${stat.index}__].id}"></td>
-            <td><input type="hidden" th:field="*{attributes[__${stat.index}__].type}"></td>
+            <input type="hidden" th:field="*{attributes[__${stat.index}__].id}">
+            <input type="hidden" th:field="*{attributes[__${stat.index}__].type}">
+            <td th:text="'Attribut ' + ${stat.index + 1} + ':'"></td>
             <td><input type="text" th:field="*{attributes[__${stat.index}__].label}"></td>
-        </tr>
-        <tr>
-            <td><button type="submit">Gem ændringer</button></td>
+            <td><button
+                    formaction="/productTypes/deleteAttribute"
+                    formmethod="post"
+                    th:value="*{attributes[__${stat.index}__].id}"
+                    name="attributeId"
+                    class="btn btn-danger"
+            >Slet</button></td>
         </tr>
     </table>
+    <button type="submit" class="btn btn-success">Gem ændringer</button>
 </form>
 
 </body>

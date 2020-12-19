@@ -31,12 +31,12 @@ public class AttributeJPA implements IAttributeService {
 
     @Override
     public void delete(Attribute object) {
-
+        attributeRepo.delete(object);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        attributeRepo.deleteById(aLong);
     }
 
     @Override

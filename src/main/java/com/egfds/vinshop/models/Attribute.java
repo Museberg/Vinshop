@@ -16,7 +16,7 @@ public class Attribute {
     private String label;
 
     // Each attribute contains a reference to ONE (1) product type
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private ProductType type;
 
 
