@@ -38,7 +38,7 @@
         </td>
         <td>
             <form action="/products/delete" method="post">
-                <button type="submit" name="id" th:value="${s.product.id}" class="btn btn-danger">Slet</button>
+                <button onclick="return confirm('Ønsker du at slette dette produkt?')" type="submit" name="id" th:value="${s.product.id}" class="btn btn-danger">Slet</button>
             </form>
         </td>
     </tr>
