@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:include="fragments/navbar :: headerFragment">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title id="pageTitle">Opret Konto</title>
 </head>
-<body>
+<body onload="myFunction()">
 <div th:replace="fragments/navbar :: navbar"></div>
+
+<dialog style="width: 340px; height: auto" id="myDialog">
+    <div class="modal-header">
+        <h5 class="modal-title">Terms and Policy Agreement</h5>
+    </div>
+    <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+    <br>
+    <div class="modal-footer">
+        <a style="position: center" onclick="removeDialog()" type="button" class="btn btn-success">Acceptér</a>
+        <a style="position: center" href="/" onclick="return confirm('Er du sikker på dit valg?')" type="button" class="btn btn-secondary">Cancel</a>
+    </div>
+</dialog>
 
 <div class="container">
     <div class="col-md-12">
@@ -83,6 +101,17 @@
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
+
+   let dialog;
+   function myFunction() {
+            dialog = document.getElementById("myDialog").showModal();
+            console.log("Modal showed")
+    }
+    function removeDialog() {
+        dialog = document.getElementById("myDialog");
+        dialog.remove();
+        console.log("Dialog has been removed")
+    }
 </script>
 </body>
 </html>
