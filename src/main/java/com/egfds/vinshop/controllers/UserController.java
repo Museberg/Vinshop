@@ -6,15 +6,15 @@ import com.egfds.vinshop.models.Zip;
 import com.egfds.vinshop.services.UserService.IAddressService;
 import com.egfds.vinshop.services.UserService.IUserService;
 import com.egfds.vinshop.services.UserService.IZipService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -42,16 +42,16 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String update(@RequestParam("user_id") long userId, @ModelAttribute User user, @ModelAttribute Address address, @ModelAttribute Zip zip) {
+    public String update(@RequestParam("user_id") long userId, @ModelAttribute User user, @ModelAttribute Address address, @ModelAttribute Zip zip, Authentication authentication) {
         user.setId(userId);
-
-        System.out.println(user);
-        System.out.println(address);
-        System.out.println(zip);
 
         zipService.save(zip);
         addressService.save(address);
         userService.save(user);
+
+        Collection<SimpleGrantedAuthority> nowAuthorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(), nowAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(authToken);
         return "redirect:/";
     }
 
