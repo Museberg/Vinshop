@@ -75,6 +75,8 @@ public class ProductController {
                 valueService.save(v);
             }
         }
+
+        // Setting empty stock for product
         Stock tempStock = new Stock();
         tempStock.setStockAmount(0);
         tempStock.setProduct(newProduct);
@@ -126,11 +128,34 @@ public class ProductController {
         return "/admin/list";
     }
 
+    // Stock
+
     @PostMapping("stock/edit")
     public String updateStock(@RequestParam("stockId") long id, @RequestParam("stockAmount") int stockAmount){
         Stock temp = stockService.findById(id).get();
         temp.setStockAmount(stockAmount);
         stockService.save(temp);
         return "redirect:/products/list";
+    }
+
+    // Product page
+    @GetMapping("/view/{id}")
+    public String viewProduct(@PathVariable("id") Long id, Model model){
+        Product product = productService.findById(id).get();
+        List<Value> values = valueService.getByProductId(product.getId());
+
+        model.addAttribute("product", product);
+        model.addAttribute("values", values);
+        model.addAttribute("type", values.get(0).getType().getLabel());
+        return "product/view";
+    }
+
+    // Product list for customer
+    @GetMapping("/allProducts")
+    public String allProducts(Model model){
+        List<Product> products = new ArrayList<>(productService.findAll());
+
+        model.addAttribute("products", products);
+        return "product/allProducts";
     }
 }

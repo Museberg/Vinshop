@@ -40,7 +40,7 @@ public class CartController {
         // If cart already contains item, amount is incremented. If not, the item is added
         cartService.addItem(cart, productService.findById(id).get());
 
-        return "redirect:/products/list";
+        return "redirect:/cart/view";
     }
 
     @GetMapping("/view")
