@@ -49,7 +49,7 @@
                     <a class="dropdown-item" href="/owner/updateRoles">Opdatér roller</a>
                 </div>
             </li>
-            <li class="nav-item active" th:if="${userCart != null || userCart.items != null}">
+            <li class="nav-item active" th:if="${userCart != null && userCart.items != null}">
                 <a class="nav-link" href="/cart/view"><span class="mr-1">Kurv</span><span class="badge badge-danger" th:if="${userCart.items.size > 0}" th:text="${userCart.getCartLength}"/></a>
             </li>
             <li class="nav-item active">
