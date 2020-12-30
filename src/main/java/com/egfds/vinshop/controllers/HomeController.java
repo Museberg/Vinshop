@@ -1,7 +1,8 @@
 package com.egfds.vinshop.controllers;
 
-import com.egfds.vinshop.models.Address;
+import com.egfds.vinshop.models.EmailNewsletter;
 import com.egfds.vinshop.models.FarmSummary;
+import com.egfds.vinshop.services.EmailNewsletterService.IEmailNewsletterService;
 import com.egfds.vinshop.services.FarmSummaryService.IFarmSummaryService;
 import com.egfds.vinshop.services.UserService.IAddressService;
 import org.springframework.stereotype.Controller;
@@ -11,17 +12,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class HomeController {
 
     IAddressService addressService;
     IFarmSummaryService farmSummaryService;
+    IEmailNewsletterService emailNewsletterService;
 
-    public HomeController(IAddressService addressService, IFarmSummaryService farmSummaryService) {
+    public HomeController(IAddressService addressService, IFarmSummaryService farmSummaryService, IEmailNewsletterService emailNewsletterService) {
         this.addressService = addressService;
         this.farmSummaryService = farmSummaryService;
+        this.emailNewsletterService = emailNewsletterService;
     }
 
     @GetMapping("/")
@@ -70,5 +76,29 @@ public class HomeController {
     @GetMapping("/owner")
     public String owner() {
         return "owner/owner";
+    }
+
+    @GetMapping("/sendEmail")
+    public String sendEmail(Model model){
+        Set<EmailNewsletter> emailNewsletterSet = emailNewsletterService.findAll();
+        ArrayList<String> emailAddresses = new ArrayList<>();
+        for (EmailNewsletter emailNewsletter: emailNewsletterSet) {
+            emailAddresses.add(emailNewsletter.getEmail());
+        }
+        String emailsCSV = Arrays.toString(emailAddresses.toArray())
+                .replace("[", "").replace("]", "");
+        model.addAttribute("emailList", emailsCSV);
+        return "sendEmail";
+    }
+
+    @PostMapping("/addEmailToNewsletterList")
+    public String addEmail(@RequestParam("email") String email){
+        EmailNewsletter emailNewsletter = new EmailNewsletter(0, email);
+        try {
+            emailNewsletterService.save(emailNewsletter);
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return "redirect:/";
     }
 }

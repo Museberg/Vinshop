@@ -9,7 +9,44 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <!-- <h1>😎</h1> -->
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<main class="wrapper">
+    <section class="section parallax bg1">
+        <h1>Such Adorableness</h1>
+    </section>
+    <section class="section static">
+        <div class="container-fluid">
+            <div class="row welcome text-center">
+                <div class="col-12">
+                    <h1 class="display-4">Tilmeld nyhedsbrev</h1>
+                </div>
+                <hr>
+                <div class="col-12">
+                    <form action="/addEmailToNewsletterList" method="post">
+                        <input type="text" placeholder="example@example.com" size="25" id="email" name="email">
+                        <br>
+                        <br>
+                        <button class="btn btn-success" type="submit">Tilmeld</button>
+                    </form>
+                </div>
+                <div>
+                <br><br><br><br>
+                <p class="lead" th:text="${farmSummary.aboutFarm}"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section parallax bg2">
+        <h1>Hello there</h1>
+    </section>
+    <section class="section static">
+        <h1>flame</h1>
+    </section>
+    <section class="section parallax bg3">
+        <h1>Test</h1>
+    </section>
+</main>
+
+<!--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" >
         <div class="carousel-item active">
             <img class="d-block w-100" th:src="${farmSummary.url1}" alt="First slide" style="height: 720px; object-fit: cover;">
@@ -30,97 +67,96 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-    <div class="container-fluid">
-        <div class="row jumbotron text-center">
-            <div class="col-12">
-                <p class="lead" th:text="${farmSummary.aboutFarm}"></p>
-            </div>
+<div class="container-fluid">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4">Tilmeld nyhedsbrev</h1>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row welcome text-center">
-            <div class="col-12">
-                <h1 class="display-4">More info</h1>
-            </div>
-            <hr>
-            <div class="col-12">
-                <p>More info more info more info</p>
-            </div>
-        </div>
-    </div>
-    <!---<div class="container-fluid padding">
-        <div class="row padding">
-            <div class="col-lg-6">
-                <h2>Vinen er så god at..</h2>
-                <p>Du vil tro at det er løgn fordi det er så godt fordi at..</p>
-                <p>Falk er så vild med rødvin at han laver hvidvin om til grønvin</p>
-                <p>Hvidvin om til grønvin spørger du? Spørg Falk..</p>
-            </div>
-            <div class="col-lg-6">
-                <img src="https://images.askmen.com/1080x540/2017/03/31-022701-the_best_home_winemaking_equipment.jpg" alt="No image" class="img-fluid">
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid padding">
-        <div class="row welcome text-center">
-            <div class="col-12">
-                <br>
-                <br>
-                <h1 class="display-4">Mød holdet</h1>
-                <br>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid padding">
-        <div class="row padding">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/47685755_10218182946266687_2332358878873780224_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=gqe0k19wjGMAX9g2tBP&_nc_ht=scontent-cph2-1.xx&oh=fb568d9c4d6d36b09df9cdd640ff61bf&oe=5FFC96AD" alt="No image" class="card-img-top">
-                    <div class="card body">
-                        <h4 class="card-title">Alexander Den Store</h4>
-                        <p class="card-text">Stor kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
-                        <a href="https://www.facebook.com/rasmus.falkjensen" class="btn btn-outline-secondary" target="_blank">Se profil</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/69493602_10217064819306782_6724132860824911872_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=3aAbzT2sa90AX_-4KFc&_nc_ht=scontent-cph2-1.xx&oh=2338b82e545f9140f54eeedfef034bcb&oe=5FFC7499" alt="No image" class="card-img-top">
-                    <div class="card body">
-                        <h4 class="card-title">Alexander Den Lille</h4>
-                        <p class="card-text">Lille kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
-                        <a href="https://www.facebook.com/michael.berko.3" class="btn btn-outline-secondary" target="_blank">Se profil</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/118256153_3060651657391683_8690301605712359027_o.jpg?_nc_cat=104&ccb=2&_nc_sid=09cbfe&_nc_ohc=Es8Cm5u2agIAX83gfH8&_nc_ht=scontent-cph2-1.xx&oh=d95c81d3cabb408d28bc4da7f3051a2a&oe=5FFDEDE1" alt="No image" class="card-img-top">
-                    <div class="card body">
-                        <h4 class="card-title">Alexander Den Mellemstore</h4>
-                        <p class="card-text">Halvstor kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
-                        <a href="https://www.facebook.com/profile.php?id=100003406370253" class="btn btn-outline-secondary" target="_blank">Se profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid-padding">
-        <div class="row text-center padding">
-            <div class="col-12">
-                <h2>Sociale medier</h2>
-            </div>
-            <div class="col-12 social-padding">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
+        <hr>
+        <div class="col-12">
+            <form action="/addEmailToNewsletterList" method="post">
+                <input type="text" placeholder="example@example.com" size="25" id="email" name="email">
+                <button class="btn btn-success" type="submit">Tilmeld</button>
+            </form>
         </div>
     </div>-->
-    <footer>
-        <div class="container-fluid padding">
+
+<!---<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-lg-6">
+            <h2>Vinen er så god at..</h2>
+            <p>Du vil tro at det er løgn fordi det er så godt fordi at..</p>
+            <p>Falk er så vild med rødvin at han laver hvidvin om til grønvin</p>
+            <p>Hvidvin om til grønvin spørger du? Spørg Falk..</p>
+        </div>
+        <div class="col-lg-6">
+            <img src="https://images.askmen.com/1080x540/2017/03/31-022701-the_best_home_winemaking_equipment.jpg" alt="No image" class="img-fluid">
+        </div>
+    </div>
+</div>
+<div class="container-fluid padding">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <br>
+            <br>
+            <h1 class="display-4">Mød holdet</h1>
+            <br>
+        </div>
+    </div>
+</div>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/47685755_10218182946266687_2332358878873780224_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=gqe0k19wjGMAX9g2tBP&_nc_ht=scontent-cph2-1.xx&oh=fb568d9c4d6d36b09df9cdd640ff61bf&oe=5FFC96AD" alt="No image" class="card-img-top">
+                <div class="card body">
+                    <h4 class="card-title">Alexander Den Store</h4>
+                    <p class="card-text">Stor kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
+                    <a href="https://www.facebook.com/rasmus.falkjensen" class="btn btn-outline-secondary" target="_blank">Se profil</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/69493602_10217064819306782_6724132860824911872_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=3aAbzT2sa90AX_-4KFc&_nc_ht=scontent-cph2-1.xx&oh=2338b82e545f9140f54eeedfef034bcb&oe=5FFC7499" alt="No image" class="card-img-top">
+                <div class="card body">
+                    <h4 class="card-title">Alexander Den Lille</h4>
+                    <p class="card-text">Lille kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
+                    <a href="https://www.facebook.com/michael.berko.3" class="btn btn-outline-secondary" target="_blank">Se profil</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t1.0-9/118256153_3060651657391683_8690301605712359027_o.jpg?_nc_cat=104&ccb=2&_nc_sid=09cbfe&_nc_ohc=Es8Cm5u2agIAX83gfH8&_nc_ht=scontent-cph2-1.xx&oh=d95c81d3cabb408d28bc4da7f3051a2a&oe=5FFDEDE1" alt="No image" class="card-img-top">
+                <div class="card body">
+                    <h4 class="card-title">Alexander Den Mellemstore</h4>
+                    <p class="card-text">Halvstor kanon. Laver fantastisk vin. Har gjort det i nul år.</p>
+                    <a href="https://www.facebook.com/profile.php?id=100003406370253" class="btn btn-outline-secondary" target="_blank">Se profil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid-padding">
+    <div class="row text-center padding">
+        <div class="col-12">
+            <h2>Sociale medier</h2>
+        </div>
+        <div class="col-12 social-padding">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+</div>
+<br>-->
+
+    <footer style="background-color: black">
+        <div class="container-fluid padding" style="color: white">
             <div class="row text-center">
                 <div class="col-md-4">
                     <hr class="light">

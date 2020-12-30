@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Send Email</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<h1>Afsend nyhedsbrev</h1>
+<p>Modtagere er automatisk afhentet fra database.</p>
+    <div>
+            <table>
+                <tr>
+                    <td><label>To: </label></td>
+                    <td><input id="recipients" type="email" size="50" th:value="${emailList}" required></td>
+                </tr>
+                <tr>
+                    <td><label>Subject: </label></td>
+                    <td><input id="subject" size="50" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label>Body: </label></td>
+                    <td>
+                        <textarea rows="10" cols="50" id="body"></textarea>
+                    </td>
+                </tr>
+            </table>
+        <button class="btn btn-success" onclick="sendEmail()" id="sendButton" type="submit">Send Email</button>
+    </div>
+</body>
+<script type="text/javascript "th:src="@{/functions.js}"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+</html>
