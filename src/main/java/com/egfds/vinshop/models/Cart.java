@@ -41,6 +41,14 @@ public class Cart {
         this.items = items;
     }
 
+    public int getCartLength() {
+        int length = 0;
+        for (CartItem item : items) {
+            length += item.getAmount();
+        }
+        return length;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
