@@ -8,4 +8,5 @@ import java.util.List;
 public interface IValueService extends ICrudService<Value, Long> {
     public void deleteByProductId(Long productId);
     public List<Value> getByProductId(Long productId);
+    public void deleteByAttributeId(Long attributeId);
 }

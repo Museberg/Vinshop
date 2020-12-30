@@ -1,6 +1,7 @@
 package com.egfds.vinshop.models;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 public class Value {
@@ -73,5 +74,16 @@ public class Value {
                 ", attribute=" + attribute +
                 ", value='" + value + '\'' +
                 '}';
+    }
+
+    public Value(long id, Product product, ProductType type, Attribute attribute, String value) {
+        this.id = id;
+        this.product = product;
+        this.type = type;
+        this.attribute = attribute;
+        this.value = value;
+    }
+
+    public Value() {
     }
 }
