@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Product</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+
+    <!--Section: Block Content-->
+    <section class="my-5">
+
+        <div class="row">
+            <div class="col-md-5 mb-4 mb-md-0">
+
+                <div class="view zoom z-depth-2 rounded">
+                    <img class="img-fluid w-100" th:src="${product.pictureURL}" alt="Billede kunne ikke findes">
+                    <a href="#!">
+                        <div class="mask waves-effect waves-light"></div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-md-7">
+
+                <h5 th:text="${product.name}"></h5>
+                <p class="mb-2 text-muted text-uppercase small" th:text="${type}"></p>
+                <p><span class="mr-1"><strong th:text="${product.price} + ' ' + 'kr.'"></strong></span></p>
+                <p class="pt-1" th:text="${product.description}"></p>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                        <tr th:each="value : ${values}">
+                            <th th:if="${value.value} != ''" class="pl-0 w-25" scope="row"><strong th:text="${value.attribute.label}"></strong></th>
+                            <td th:if="${value.value} != ''" th:text="${value.value}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <form action="/cart/add" method="post">
+                    <button type="submit" name="id" th:value="${product.id}" class="btn btn-primary">Tilføj til kurv</button>
+                </form>
+
+            </div>
+        </div>
+
+    </section>
+    <!--Section: Block Content-->
+
+</div>
+
+</body>
+
+</html>

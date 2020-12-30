@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/navbar :: headerFragment">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Produkter</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-4 mt-3 mb-4">
+
+            <h4 class="mb-4">Kategorier</h4>
+
+            <!-- Section: Categories -->
+            <section>
+
+                <h5 class="mb-3">Vin</h5>
+
+                <div class="text-muted small text-uppercase mb-5">
+
+                    <p class="mb-3"><a href="#!" class="card-link-secondary">Rødvin</a></p>
+                    <p class="mb-3"><a href="#!" class="card-link-secondary">Hvidvin</a></p>
+
+                </div>
+
+            </section>
+            <!-- Section: Categories -->
+
+            <!-- Section: Categories -->
+            <section>
+
+                <h5 class="mb-3">Chokolade</h5>
+
+                <div class="text-muted small text-uppercase mb-5">
+
+                    <p class="mb-3"><a href="#!" class="card-link-secondary">HVID CHOKOLADE</a></p>
+                    <p class="mb-3"><a href="#!" class="card-link-secondary">Mørk Chokolade</a></p>
+
+                </div>
+
+            </section>
+            <!-- Section: Categories -->
+
+
+        </div>
+        <div class="col-lg-8">
+
+
+            <!--Section: Block Content-->
+            <section>
+
+                <!-- Grid row -->
+                <div class="row mb-4">
+
+                    <!-- Grid column -->
+                    <div class="col-md-6 col-lg-4 mb-4" th:each="product : ${products}">
+
+                        <!-- Card -->
+                        <div class="">
+
+                            <div>
+                                <a th:href="'/products/view/' + ${product.id}">
+                                    <img class="img-fluid w-100" th:src="${product.pictureURL}" alt="Billede kunne ikke findes">
+                                </a>
+
+                            </div>
+
+                            <div class="text-center pt-4">
+
+                                <h5 th:text="${product.name}"></h5>
+                                <h6 class="mb-3"></h6>
+                                <form action="/cart/add" method="post">
+                                    <button type="submit" name="id" th:value="${product.id}" class="btn btn-primary">Tilføj til kurv</button>
+                                </form>
+
+                            </div>
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!-- Grid column -->
+
+
+                </div>
+                <!-- Grid row -->
+
+            </section>
+            <!--Section: Block Content-->
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

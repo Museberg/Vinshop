@@ -47,15 +47,44 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable();
-        httpSecurity.authorizeRequests()
-                .antMatchers("/owner/**").hasRole("OWNER")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "OWNER")
-                .antMatchers("/products/**").hasAnyRole("ADMIN", "OWNER")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN", "OWNER")
-                .antMatchers("/aboutFarm/**").hasAnyRole("ADMIN", "OWNER")
-                .antMatchers("/").permitAll()
-                .antMatchers("/error").permitAll()
-                .and().formLogin();
+        httpSecurity
+                .authorizeRequests()
+                    .antMatchers("/owner/**")
+                    .hasRole("OWNER")
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/admin/**")
+                    .hasAnyRole("ADMIN", "OWNER")
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/products/view/**")
+                    .permitAll()
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/products/allProducts")
+                    .permitAll()
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/products/**")
+                    .hasAnyRole("ADMIN", "OWNER")
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/user/**")
+                    .hasAnyRole("USER", "ADMIN", "OWNER")
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/aboutFarm/**")
+                    .hasAnyRole("ADMIN", "OWNER")
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/")
+                    .permitAll()
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/error")
+                    .permitAll()
+                    .and()
+                .formLogin();
     }
 
 }
