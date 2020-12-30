@@ -46,21 +46,26 @@ public class HomeController extends ControllerAdvisor {
         else{
             model.addAttribute("farmSummary", optionalFarmSummary.get());
         }
+        addFarmSummaryToModel(model);
         return "index";
     }
 
-    @GetMapping("/aboutFarm/edit")
+
+    @GetMapping("/owner/aboutFarm/edit")
     public String editFarmInfo(Model model){
+        addFarmSummaryToModel(model);
+        return "aboutFarm/edit";
+    }
+
+    public void addFarmSummaryToModel(Model model) {
         Optional<FarmSummary> optionalFarmSummary = farmSummaryService.findById((long) 1);
         if(optionalFarmSummary.isEmpty()){
             FarmSummary farmSummary = new FarmSummary();
             farmSummaryService.save(farmSummary);
             model.addAttribute("farmSummary", farmSummary);
-        }
-        else{
+        }else{
             model.addAttribute("farmSummary", optionalFarmSummary.get());
         }
-        return "aboutFarm/edit";
     }
 
     @PostMapping("/update")
@@ -71,7 +76,6 @@ public class HomeController extends ControllerAdvisor {
         farmSummaryService.save(temp);*/
         return "redirect:/";
     }
-
 
     @GetMapping("/admin")
     public String admin(){

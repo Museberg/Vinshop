@@ -51,10 +51,9 @@
 .bg1::after {
     background-image: url(picture1.jpeg);
 }
-
 .bg2::after {
     background-image: url(picture2.jpeg);
 }
 .bg3::after{
-    background-image: url(picture3.jpg);
+    background-image: url(picture3.jpeg);
 }
