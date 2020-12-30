@@ -4,7 +4,13 @@ import com.egfds.vinshop.models.FarmSummary;
 import com.egfds.vinshop.repositories.FarmSummary.IFarmSummaryRepo;
 import com.egfds.vinshop.services.FarmSummaryService.IFarmSummaryService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -43,5 +49,15 @@ public class FarmSummaryJPA implements IFarmSummaryService {
     @Override
     public Optional<FarmSummary> findById(Long aLong) {
         return farmSummaryRepo.findById(aLong);
+    }
+
+    @Override
+    public void savePicturesToDirectory(MultipartFile[] files) throws IOException {
+        String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static";
+        new File(uploadDirectory).mkdir();
+        for (MultipartFile file: files) {
+            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+            Files.write(fileNameAndPath, file.getBytes());
+        }
     }
 }

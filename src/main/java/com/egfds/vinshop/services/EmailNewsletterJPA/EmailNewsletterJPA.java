@@ -6,9 +6,8 @@ import com.egfds.vinshop.repositories.EmailNewsletterRepos.IEmailNewsletterRepo;
 import com.egfds.vinshop.services.EmailNewsletterService.IEmailNewsletterService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+
 @Service
 public class EmailNewsletterJPA implements IEmailNewsletterService {
 
@@ -43,5 +42,15 @@ public class EmailNewsletterJPA implements IEmailNewsletterService {
     @Override
     public Optional<EmailNewsletter> findById(Long aLong) {
         return findById(aLong);
+    }
+
+    @Override
+    public String convertEmailSetToCSV(Set<EmailNewsletter> emailNewsletterSet) {
+        ArrayList<String> emailAddresses = new ArrayList<>();
+        for (EmailNewsletter emailNewsletter: emailNewsletterSet) {
+            emailAddresses.add(emailNewsletter.getEmail());
+        }
+        return Arrays.toString(emailAddresses.toArray())
+                .replace("[", "").replace("]", "");
     }
 }
