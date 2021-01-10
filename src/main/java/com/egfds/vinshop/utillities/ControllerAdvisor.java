@@ -32,4 +32,22 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return null;
     }
 
+    @ModelAttribute("userRole")
+    public String getUserRole(Authentication auth){
+        if(auth != null){
+            String email = auth.getName();
+            String role = userService.findByEmail(email).get().getRoles();
+            return role.substring(5);
+        }
+        return null;
+    }
+
+    @ModelAttribute("userName")
+    public String getUserName(Authentication auth){
+        if(auth != null){
+            return auth.getName();
+        }
+        return null;
+    }
+
 }

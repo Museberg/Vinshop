@@ -40,7 +40,10 @@
                     </table>
                 </div>
                 <hr>
-                <form action="/cart/add" method="post">
+                <a th:if="${userRole == null}" href="/login">
+                    <button class="btn btn-primary">Tilføj til kurv</button>
+                </a>
+                <form th:if="${userRole != null}" action="/cart/add" method="post">
                     <button type="submit" name="id" th:value="${product.id}" class="btn btn-primary">Tilføj til kurv</button>
                 </form>
 

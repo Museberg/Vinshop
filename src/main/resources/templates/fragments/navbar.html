@@ -24,7 +24,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Hjem<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li th:if="${userRole != null && userRole == 'ADMIN' || userRole == 'OWNER'}" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Produkter
                 </a>
@@ -40,12 +40,18 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Brugere
+                    Bruger
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/signup">Opret bruger</a>
-                    <a class="dropdown-item" href="/user/about-me">Min profil</a>
-                    <div class="dropdown-divider"></div>
+                    <a th:if="${userRole == null}" class="dropdown-item" href="/signup">Opret bruger</a>
+                    <a th:if="${userRole != null}" class="dropdown-item" href="/user/about-me">Min profil</a>
+                </div>
+            </li>
+            <li th:if="${userRole != null && userRole == 'OWNER'}" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/owner/updateRoles">Opdatér roller</a>
                 </div>
             </li>
@@ -56,15 +62,17 @@
                 <a class="nav-link" href="/products/allProducts">Shop<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/cart/view">Kurv<span class="sr-only"></span></a>
+                <a th:if="${userCart != null}" class="nav-link" href="/cart/view">Kurv<span class="sr-only"></span></a>
+                <a th:if="${userCart == null}" class="nav-link" href="/login">Kurv<span class="sr-only"></span></a>
             </li>
-            <li class="nav-item active">
+            <li th:if="${userRole == 'ADMIN' || userRole == 'OWNER'}" class="nav-item active">
                 <a class="nav-link" href="/sendEmail">Afsend nyhedsbrev<span class="sr-only"></span></a>
             </li>
         </ul>
         <span class="navbar-text">
-            <a href="/login">Log ind</a>
-            <a href="/logout">Log ud</a>
+            <a class="text-muted" th:if="${userName != null}" th:text="${userName}" href="/user/about-me"></a>
+            <a th:if="${userRole == null}" href="/login">Log ind</a>
+            <a th:if="${userRole != null}" href="/logout">Log ud</a>
         </span>
     </div>
 </nav>

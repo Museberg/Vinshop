@@ -71,7 +71,10 @@
 
                                 <h5 th:text="${product.name}"></h5>
                                 <h6 class="mb-3"></h6>
-                                <form action="/cart/add" method="post">
+                                <a th:if="${userRole == null}" href="/login">
+                                    <button class="btn btn-primary">Tilføj til kurv</button>
+                                </a>
+                                <form th:if="${userRole != null}" action="/cart/add" method="post">
                                     <button type="submit" name="id" th:value="${product.id}" class="btn btn-primary">Tilføj til kurv</button>
                                 </form>
 
