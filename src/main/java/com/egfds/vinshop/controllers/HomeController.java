@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,42 +36,34 @@ public class HomeController extends ControllerAdvisor {
 
     @GetMapping("/")
     public String index(Model model){
-        Optional<FarmSummary> optionalFarmSummary = farmSummaryService.findById((long) 1);
-
-        if(optionalFarmSummary.isEmpty()){
-            FarmSummary farmSummary = new FarmSummary();
-            farmSummaryService.save(farmSummary);
-            model.addAttribute("farmSummary", farmSummary);
-        }
-        else{
-            model.addAttribute("farmSummary", optionalFarmSummary.get());
-        }
+        addFarmSummaryToModel(model);
         return "index";
     }
 
-    @GetMapping("/aboutFarm/edit")
+
+    @GetMapping("/owner/aboutFarm/edit")
     public String editFarmInfo(Model model){
+        addFarmSummaryToModel(model);
+        return "aboutFarm/edit";
+    }
+
+    public void addFarmSummaryToModel(Model model) {
         Optional<FarmSummary> optionalFarmSummary = farmSummaryService.findById((long) 1);
         if(optionalFarmSummary.isEmpty()){
             FarmSummary farmSummary = new FarmSummary();
             farmSummaryService.save(farmSummary);
             model.addAttribute("farmSummary", farmSummary);
-        }
-        else{
+        }else{
             model.addAttribute("farmSummary", optionalFarmSummary.get());
         }
-        return "aboutFarm/edit";
     }
 
-    @PostMapping("/update")
-    public String updateFarmInfo(@ModelAttribute FarmSummary farmSummary) {
+    @PostMapping("/owner/aboutFarm/update")
+    public String updateFarmInfo(@ModelAttribute FarmSummary farmSummary, @RequestParam("filesToUpload") MultipartFile[] files) throws IOException {
         farmSummaryService.save(farmSummary);
-        /*FarmSummary temp = farmSummaryService.findById(farmSummary.getId()).get();
-        temp.setAboutFarm(farmSummary.getAboutFarm());
-        farmSummaryService.save(temp);*/
+        farmSummaryService.savePicturesToDirectory(files);
         return "redirect:/";
     }
-
 
     @GetMapping("/admin")
     public String admin(){
@@ -83,17 +75,12 @@ public class HomeController extends ControllerAdvisor {
         return "owner/owner";
     }
 
-    @GetMapping("/sendEmail")
+    @GetMapping("/owner/sendNewsletter")
     public String sendEmail(Model model){
         Set<EmailNewsletter> emailNewsletterSet = emailNewsletterService.findAll();
-        ArrayList<String> emailAddresses = new ArrayList<>();
-        for (EmailNewsletter emailNewsletter: emailNewsletterSet) {
-            emailAddresses.add(emailNewsletter.getEmail());
-        }
-        String emailsCSV = Arrays.toString(emailAddresses.toArray())
-                .replace("[", "").replace("]", "");
+        String emailsCSV = emailNewsletterService.convertEmailSetToCSV(emailNewsletterSet);
         model.addAttribute("emailList", emailsCSV);
-        return "sendEmail";
+        return "owner/sendNewsletter";
     }
 
     @PostMapping("/addEmailToNewsletterList")

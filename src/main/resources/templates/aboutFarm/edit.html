@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <h1>Redigér forside</h1>
-<form method="post" action="/update" th:object="${farmSummary}">
+<form method="post" action="/owner/aboutFarm/update" th:object="${farmSummary}" enctype="multipart/form-data">
     <table>
         <tr>
             <td><input type="hidden" th:field="*{id}"></td>
@@ -29,6 +29,12 @@
                 <td id="textCounter" style="font:15px Arial;">1000 Characters</td>
             </tr>
         <tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="file" name="filesToUpload" id="filesToUpload" multiple>
+            </td>
+        </tr>
         </tr>
         </tr>
     </table>
